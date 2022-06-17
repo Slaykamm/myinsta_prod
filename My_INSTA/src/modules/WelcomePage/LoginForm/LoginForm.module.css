@@ -1,0 +1,53 @@
+.LoginFormOuterContainer {
+
+    background-color: thistle;
+    width: 100%;
+    height: 48rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.LoginFormInnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40%;
+    height: 35%;
+
+}
+
+.LoginFormInnerContainer h5 {
+    color: rgb(177, 12, 12)
+}
+
+.InputRemember {
+    width: 10px;
+    cursor: pointer;
+    transform: scale(1.4);
+
+}
+
+.Button {
+    background-color:#444653;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.Button:hover {
+    background-color: whitesmoke;
+    color: #4446;
+}
+
+.RegBut {
+    padding-top: 3rem;
+}
+
+.SocialButtons {
+    padding-top: 3rem;
+}

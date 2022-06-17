@@ -1,0 +1,53 @@
+.BaseLayer {
+    padding-top: 12rem;
+    z-index:1;
+}
+
+
+.BaseLine {
+    width: 50%;
+
+    margin-left: 25%;
+} 
+
+.PostOuter {
+    padding-top: 1rem;
+    z-index: 0;
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+}
+
+
+.Frame {
+    height: 30rem;
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.VideoMenuOptions {
+
+    list-style: none;	
+    padding: 5px;		
+    display: flex;
+    flex-direction: column;
+}
+
+.VideoMenuOptions p {
+    font-size: 1.4rem;
+}
+
+.VideoMenuOptions span {
+    font-weight: bold;
+}
+
+.AuthorHover:hover {
+    color:rgb(84, 24, 139);
+    font-weight: bold;
+    cursor: pointer;
+}

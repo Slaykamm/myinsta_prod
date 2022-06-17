@@ -1,0 +1,71 @@
+.ContainerConstruction {
+    display: flex;
+    flex-direction: column;
+}
+
+.InnerBlock {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+img {
+    object-fit: contain;
+    height: 15rem;
+}
+
+
+.InnerText {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.InnerText span{
+    color: black;
+    font-weight: bold;
+}
+
+.InnerText h5{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.textLimits {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+
+.checkBoxStyle {
+   
+
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 3%;
+    padding-right: 5%;
+    padding-bottom: 3%;
+}
+
+.checkBoxStyle input {
+
+    display: none;
+    transform: scale(2);
+}
+
+.checkBoxDeleteMode input{
+    display: flex;
+}
+
+.AuthorHover:hover  {
+    color:rgb(84, 24, 139);
+    font-weight: bold;
+    cursor: pointer;
+}

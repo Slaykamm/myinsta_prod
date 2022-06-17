@@ -1,0 +1,51 @@
+.Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px;
+    border: 1px solid #c9c9c9;
+    border-radius: 10px; 
+    /* border: solid 1px;
+    border: 2px solid #c9c9c9;
+    box-shadow: 0 0 7px #666; 
+    border-radius: 10px; */ 
+}
+
+.Container:hover {
+    box-shadow: 0 0 7px #666; 
+    border-radius: 10px;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+
+
+.userInfo img {
+    height: 130px;
+    width: 120px;
+    border-radius: 100px; /* Радиус скругления */
+    border: 3px solid rgb(99, 17, 24); /* Параметры рамки */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+
+/* .userInfo img:hover{
+    transform: scale(1.05);
+} */
+
+
+
+.textInfo {
+    padding: 10px;
+}
+
+.cuttedText {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
