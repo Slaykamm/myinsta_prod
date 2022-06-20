@@ -2,3 +2,46 @@
     padding-top: 12rem;
 }
 
+
+.userListVideo {
+    position: fixed;
+    padding-top: 1rem;
+    margin-top: 10rem;
+    margin-left: 90%;
+    height: 35rem;
+    width: 10%;
+    overflow-y: scroll;
+    background-color:whitesmoke;
+    cursor: pointer;
+    border-radius: 8px; 
+}
+
+.InnerBlock {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.userListVideo img {
+    object-fit: contain;
+    height: 3rem;
+}
+
+.userStreamTitle {
+    display: flex;
+    justify-content: center;
+    font-size: smaller;
+    font-weight: bolder;
+    
+}
+
+.InnerText span{
+    color: black;
+    font-weight: bold;
+}
+.InnerText h5{
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

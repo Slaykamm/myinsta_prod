@@ -9,6 +9,7 @@ function VideoContainer({
     deleteMode, 
     addToSetListFilesVideosToDelete,
     deleteFromSetListFilesVideosToDelete,
+    lastVideosForUser,
     ...props
 }) {
 
