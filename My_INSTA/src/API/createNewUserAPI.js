@@ -33,6 +33,10 @@ export const createNewUserAPI  = () => {
                     "phone": `${Date.now()}`,
                     "name": id
                 }
+                getId.catch((err) => {
+                    console.log('ERRROR  ID', err.response)
+
+                })
 
                 console.log('step4: new author ', author)
                 const makeAuthor = axios.post('http://127.0.0.1:8000/api/author/', author)
@@ -44,7 +48,7 @@ export const createNewUserAPI  = () => {
                 })
 
                 makeAuthor.catch((err) => {
-                    console.log('ERRROR', err.response)
+                    console.log('ERRROR AUTHOR', err.response)
                    // dispatch(verifyUserAction(err.response))
 
                 })

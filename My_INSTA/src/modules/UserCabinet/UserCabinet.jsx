@@ -41,6 +41,7 @@ const [avatarDitry, setAvatarDirty] = useState('')
 const [avatarImage, setAvatarImage] = useState(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar']) )
 
 const [userEmail, setUserEmail] = useState('aa')
+const [isSocialAcc, setIsSocialAcc] = useState(false)
 const [userPassword, setPassword] = useState('')
 const [oldPassword, setOldPassword] = useState(false)
 
@@ -60,10 +61,12 @@ useEffect(()=>{
     props.getUsersDict()
   },[])
 
-useEffect(()=>{
-    if (props.usersDict.length){
-    setUserLogin(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'username']))
-    setUserEmail(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'email']))
+  
+  useEffect(()=>{
+      if (props.usersDict.length){
+          setUserLogin(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'username']))
+          setUserEmail(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'email']))
+          setIsSocialAcc(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'socialAcc']))
 }
 },[props.usersDict])
 
@@ -234,14 +237,15 @@ const [avaChanged, setAvaChanged] = useState('')
                         // isError={isError}
                     />
 
-                    <LKPasswordForm 
-                        onSubmit={onSubmitPassword} 
-                        oldPassword={oldPassword}
-                        confirmPasswordChanged={confirmPasswordChanged}
-                        
-                      //  isError={isError}
-                    />
-
+                    {!isSocialAcc 
+                        && <LKPasswordForm 
+                            onSubmit={onSubmitPassword} 
+                            oldPassword={oldPassword}
+                            confirmPasswordChanged={confirmPasswordChanged}
+                            
+                        //  isError={isError}
+                        />
+                    }
 
                 {/* <LkAvatarContainer
                 avatarImage={get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar'])}

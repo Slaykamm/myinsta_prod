@@ -32,6 +32,7 @@ export function getIndexesFromPrivateRoomNameService(roomName){
 //module.exports = getIndexesFromPrivateRoomNameService;
 
 export function getMultyUsersRoomNameFromIndexesService(indexArray) {
+    console.log('indexArray', indexArray)
     const indexes = indexArray.sort((a,b)=> a-b)
     const result = '@MULTY_'+indexes.join('_')
     return [result, indexes]

@@ -4,7 +4,6 @@ const initialState = false;
 
 
 function sideBarShow(state=initialState, action) {
-    console.log('state')
 
     switch (action.type) {
         case LEFT_SIDEBAR_SHOW:

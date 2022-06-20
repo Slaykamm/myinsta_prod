@@ -37,6 +37,7 @@ function _MultiChatCover({
     roomName,
     putToBase,
     putToBaseResult,
+    name,
     ...props}) {
 
 
@@ -66,6 +67,7 @@ function _MultiChatCover({
         setModal(true)
 // web sockets initialize here
 
+        console.log('name', name)
         const ws = new WebSocket('ws://127.0.0.1:8000/api/prvatemessages/')
         setWss(ws)
             ws.onopen = () => {
@@ -152,7 +154,6 @@ function _MultiChatCover({
 
     }
         useEffect(()=>{
-            console.log('GroupChange result', putToBaseResult)
             if (putToBaseResult === 200){
                // window.location.reload();
             }
@@ -188,6 +189,7 @@ function _MultiChatCover({
                     privateMessageDelete={privateMessageDelete}
                     privateMessageEdit={privateMessageEdit}
                     replyPrivateWithQuotation={replyPrivateWithQuotation}
+                    name={name}
                     
 
                 />
@@ -212,9 +214,15 @@ function _MultiChatCover({
         <div
             onClick={e => startChat(ID)} 
             className={cl.Container}>
-            <span
-                className={cl.MultyChatName}
-                >Групповой чат</span>
+            
+            {
+                name
+                ? <span className={cl.MultyChatName}>{name}</span>
+                : <span className={cl.MultyChatName}>Групповой чат</span>
+            
+            }
+            
+                
             <div className={cl.userInfo}>
                 {map(usersArray, chatMember =>
                     <div 

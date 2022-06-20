@@ -18,6 +18,7 @@ function MyModalChatContainer(
         roomMessage, 
         roomID, 
         replyPrivateWithQuotation, 
+        name,
         ...props
     }) {
     const [modal, setModal] = useState(false)
@@ -25,6 +26,7 @@ function MyModalChatContainer(
     const [editMessage, setEditMessage] = useState(roomMessage.text)
 
     const usersDict = JSON.parse(window.localStorage.getItem('usersDict')) 
+
 
 
     function EditTransition(e){

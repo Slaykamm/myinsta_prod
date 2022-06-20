@@ -24,7 +24,8 @@ const _LeftSideBar = (props) => {
 
     //TODO исправить это. сделать чтобы то что ниже клало ай ди юзера
     useEffect(()=>{
-      setUserInfo(props.usersDict[1])
+      console.log('props.', props.usersDict)
+      setUserInfo(props.usersDict[0])
     },[props.usersDict])
 
 
@@ -34,7 +35,7 @@ const _LeftSideBar = (props) => {
 
   return (
     <>
-
+      {console.log('userInfo', userInfo)}
       {userInfo
       ? 
         <Offcanvas show={props.sideBarShow} onHide={handleClose}>

@@ -20,6 +20,7 @@ import {
     getPutToBaseResult, 
     getDeleteFromBaseResult,
     getWs,
+    getPostToBaseResult,
 } from  '../../../redux/Selectors/baseSelectors'
 import { 
     getPrivateRooms, 
@@ -34,6 +35,12 @@ import {
     pick,
     map,
 } from 'lodash'
+import MyModal from '../../../UI/MyModal/MyModal'
+import MyButton from '../../../UI/MyButton/MyButton'
+import input from '../../../UI/MyInput/MyInput'
+import { getMultyUsersRoomNameFromIndexesService } from '../../../services/roomNamesService'
+import { postToBaseAPI } from '../../../API/postToBaseAPI'
+import MyInput from '../../../UI/MyInput/MyInput'
 
 
 function PrivateMessagePage(props) {
@@ -189,7 +196,6 @@ function PrivateMessagePage(props) {
 
 /// -------чаты
         const filteredChatProcess = useMemo(()=>{
-            console.log('test props.anotherChatMatesMultyUsersID', props.anotherChatMatesMultyUsersID)
             return filterQuery(props.anotherChatMatesMultyUsersID, searchQuery)
         }, [props.anotherChatMatesMultyUsersID, searchQuery])
 
@@ -215,8 +221,83 @@ function PrivateMessagePage(props) {
         } 
 
 
+        const [newChatModal, setNewChatModal] = useState(false)
+        const [newChatName, setNewChatName] = useState('')
+    
+        const createChat = (e) => {
+            e.preventDefault()
+            // так получаем юзер айди
+            console.log('hello world', userID)
+            setNewChatModal(true)
+  
+            // делаем модалку с полями Имя чата и кнопкой ок
+            // из этого делаем @MULTY_userId
+            // вопрос что делать с именем группы. => добавил имя в группу. бланк. Юзаем для мульти чатов. Соотвественно, если оно есть -
+            // выводим в чате где нить сверху
+
+        }
+
+        // action create chat
+        const createChatAction = () => {
+            console.log('create chate', 'user ID', userID, 'chat name', newChatName)
+            setNewChatModal(false)
+            const dboName = getMultyUsersRoomNameFromIndexesService([userID])
+            console.log('aaa', dboName[0])
+
+            // props.putToBase(message, id, url)
+
+            let users = new Array;
+            users.push(userID)
+
+            const message =    {
+                "privateChatName": dboName[0],
+                "lastOpenDate": new Date().toISOString(),
+                "privateChat": false,
+                "name": newChatName,
+                "privateRoomMembers": users
+            }
+
+            const url = '/privaterooms'
+            props.postToBase(message, url)
+        }
+
+        useEffect(() => {
+            if (props?.postToBaseResult?.status === 201){
+                console.log('base Post Result', props?.postToBaseResult)
+                setNewChatName('')
+            }
+        },[props.postToBaseResult])
+
+        //============================удаление чата
+
+
+
+
     return (
         <>
+            <MyModal
+                visible={newChatModal}
+                setVisible={setNewChatModal}
+            >
+               <MyInput
+                    setNewChatName={setNewChatName}
+                    newChatName={newChatName}
+                    //onChange={e => setNewChatName(e.target.value)}
+               
+               /> 
+               
+               <MyButton
+                    onClick={createChatAction}
+                >
+                    Создать новый чат
+               </MyButton>
+
+
+            </MyModal>
+          
+
+      
+
 
             {userForNewChat
             ?   <div>
@@ -241,6 +322,11 @@ function PrivateMessagePage(props) {
         <div>
             <div className={cl.BaseLayer}>
                 <div className={cl.BaseLine}>
+
+                    <button
+                        onClick={e => createChat(e)} 
+                    >Создать групповой чат</button>
+
 
                     <div className={cl.MessagesLayer}>
                         <div>
@@ -279,7 +365,7 @@ function PrivateMessagePage(props) {
                                                     roomName={get(filter(props.usersPrivateRooms, {'id': messageRoom.privateChatID}),[0, 'privateChatName'])}
                                                     
                                                     />
-                                            
+   
                                             :   <MultiChatCover
                                                     key={messageRoom.privateChatID}
                                                     messages={usersPrivateMessages}
@@ -304,6 +390,7 @@ function PrivateMessagePage(props) {
                                                     usersPrivateRooms={props.usersPrivateRooms}
                                                     userID={userID}
                                                     roomName={get(filter(props.usersPrivateRooms, {'id': messageRoom.privateChatID}),[0, 'privateChatName'])}
+                                                    name={get(filter(props.usersPrivateRooms, {'id': messageRoom.privateChatID}),[0, 'name'])}
                                                     putToBase={props.putToBase}
                                                     putToBaseResult={props.putToBaseResult}
                                                     
@@ -359,11 +446,7 @@ export default connect(
         putToBaseResult: getPutToBaseResult(state),
         deleteFromBaseResult: getDeleteFromBaseResult(state),
         Ws: getWs(state),
-        
-
-        
-        
-
+        postToBaseResult: getPostToBaseResult(state),
     }),
     //mapDispatchToProps
     dispatch => ({
@@ -384,7 +467,10 @@ export default connect(
         },
         deleteFromBase: (id, url) => {
             dispatch(deleteFromBaseAPI(id, url))
-        }
+        },
+        postToBase: (id, url) => {
+            dispatch(postToBaseAPI(id, url))
+        },
     })
 
 )(PrivateMessagePage)
