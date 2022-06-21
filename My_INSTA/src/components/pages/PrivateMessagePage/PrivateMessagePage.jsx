@@ -41,6 +41,8 @@ import input from '../../../UI/MyInput/MyInput'
 import { getMultyUsersRoomNameFromIndexesService } from '../../../services/roomNamesService'
 import { postToBaseAPI } from '../../../API/postToBaseAPI'
 import MyInput from '../../../UI/MyInput/MyInput'
+import MySelect from '../../../UI/Myselect/MySelect'
+import MyRedButton from '../../../UI/MyRedButton/MyRedButton'
 
 
 function PrivateMessagePage(props) {
@@ -50,6 +52,8 @@ function PrivateMessagePage(props) {
     const [usersPrivateMessages, setUsersPrivateMessages] = useState()
     const [replyPrivateMessage, setReplyPrivateMessage] = useState('')
     const [listUsers, setListUsers] = useState()
+    const [possibleDeleteChats, setPossibleDeleteChats] = useState()
+    const [multyChatToDelete, setMultyChatToDelete] = useState()
 
 
   
@@ -75,9 +79,18 @@ function PrivateMessagePage(props) {
 
 
 //тут мы получаем полный список сообщений, которые для юзера, деленный по комнатам.
+// создаем чаты которые можно удалить
     useEffect(()=>{
         props.getPrivateMessages(props.usersPrivateRooms)
+        console.log('teeee', props.usersPrivateRooms)
+
+        const delChats = props.usersPrivateRooms.filter(chat => chat.privateChat == false)
+        setPossibleDeleteChats(delChats)
+        console.log('newChats', delChats)
     },[props.usersPrivateRooms])
+
+
+
 
     //передаем мессаджи юзера
     useEffect(()=>{
@@ -264,11 +277,30 @@ function PrivateMessagePage(props) {
         useEffect(() => {
             if (props?.postToBaseResult?.status === 201){
                 console.log('base Post Result', props?.postToBaseResult)
+                window.location.reload()
                 setNewChatName('')
             }
         },[props.postToBaseResult])
 
         //============================удаление чата
+
+
+        const deleteChatAction = (e) => {
+            e.preventDefault();
+            console.log('DELETE', multyChatToDelete)
+
+            const url = '/privaterooms'
+            props.deleteFromBase(multyChatToDelete, url)
+            
+        }
+    
+        useEffect(()=>{
+            console.log('props.deleteFromBaseResult', props.deleteFromBaseResult)
+            if (multyChatToDelete && props.deleteFromBaseResult === 204){
+                window.location.reload()
+          }
+        },[props.deleteFromBaseResult])
+
 
 
 
@@ -323,10 +355,30 @@ function PrivateMessagePage(props) {
             <div className={cl.BaseLayer}>
                 <div className={cl.BaseLine}>
 
-                    <button
-                        onClick={e => createChat(e)} 
-                    >Создать групповой чат</button>
+                    <div className={cl.PrivateChatsbtnGrp}>
+                        <MyButton
+                            onClick={e => createChat(e)} 
+                        >Создать групповой чат</MyButton>
 
+
+                        <select
+                            onChange={e => setMultyChatToDelete(e.target.value)}
+                        >
+                        <option  value="">Выберите группой чат для удаления</option> 
+                            {possibleDeleteChats?.map(room => 
+                                    <option key={room.id}
+                                    value={room.id}
+                                    >
+                                    {room.name} 
+                                    </option>
+                                )}
+                        </select>
+
+                            
+                        <MyRedButton
+                            onClick={e => deleteChatAction(e)}
+                            > Удалить </MyRedButton>
+                    </div>
 
                     <div className={cl.MessagesLayer}>
                         <div>

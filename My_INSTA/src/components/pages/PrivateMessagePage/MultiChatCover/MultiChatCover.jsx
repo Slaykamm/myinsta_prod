@@ -129,6 +129,21 @@ function _MultiChatCover({
             const url = '/privaterooms'
            putToBase(payload, url, ID)
 
+           console.log('payllll', payload)
+
+           //const newGroupMembers = groupMembers.push(notGroupMembers[0])
+           // setGroupMembers(groupMembers)
+
+           //const testDelete = notGroupMembers.filter(i => i.name)
+        
+           // доделать ай ди добавлять и удалять из нот мемберов. при удалении наоборт
+
+
+           const newMember = filteredUsers.filter(({id}) => id === toNumber(value))
+           const newNotGroupMembers = notGroupMembers.filter(({id}) => id !== toNumber(value))     
+
+           setGroupMembers([...groupMembers, newMember[0]])
+           setNotGroupMembers(newNotGroupMembers)
 
         } else {
             window.alert('Вы превысили максимальное значение пользователей в комнате. Максимальное количество 10 человек')
@@ -136,14 +151,13 @@ function _MultiChatCover({
     }
 
     function removeUserChange(userToRemoveId){
-        const groupMembers = getIndexesFromMultyUsersRoomNameService(roomName, ID)
-        const newRoomMembers = without(groupMembers, userToRemoveId)
+        const groupMembersLocal = getIndexesFromMultyUsersRoomNameService(roomName, ID)
+        const newRoomMembers = without(groupMembersLocal, userToRemoveId)
         const newRoomName = getMultyUsersRoomNameFromIndexesService(newRoomMembers)
         let newRoomMembersArray = new Array;
         newRoomMembers.map(user =>{
             newRoomMembersArray.push(user)
         })   
-
 
         const payload = {
             "privateChatName": newRoomName[0],
@@ -152,6 +166,17 @@ function _MultiChatCover({
         const url = '/privaterooms'
         putToBase(payload, url, ID)
 
+
+        const removeMember = filteredUsers.filter(({id}) => id === toNumber(userToRemoveId))
+
+        const newGroupMembers = groupMembers.filter(({id}) => id !== toNumber(userToRemoveId))
+
+        console.log('1111111', newGroupMembers)
+        setGroupMembers(newGroupMembers)
+
+
+        console.log('newNotMembers', removeMember[0])
+        setNotGroupMembers([...notGroupMembers, removeMember[0]])
     }
         useEffect(()=>{
             if (putToBaseResult === 200){
@@ -164,7 +189,9 @@ function _MultiChatCover({
             if (!modal && wss){
                 wss.close()
                 setWss(null)
+                window.location.reload()
             }
+            
 
         }, [modal])
     
