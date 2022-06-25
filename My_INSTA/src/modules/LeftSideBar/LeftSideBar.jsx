@@ -67,6 +67,11 @@ const _LeftSideBar = (props) => {
                 <li className={cl.textHover}>
                     <Nav.Link href="/userVideoPage"><span style={{color:'black'}}>Ваши видео</span></Nav.Link>
                 </li >
+
+                <li className={cl.textHover}>
+                    <Nav.Link href="/userVideoArchive"><span style={{color:'black'}}>Ваши видео в архиве</span></Nav.Link>
+                </li >
+
                 <li className={cl.textHover} >
                     <Nav.Link href="/privateMessages"><span style={{color:'black'}}>Ваши личные сообщения</span></Nav.Link>
                     

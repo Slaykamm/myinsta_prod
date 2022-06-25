@@ -10,6 +10,7 @@ import UserVideoPage from './components/pages/userVideo/userVideoPage';
 import PrivateMessagePage from './components/pages/PrivateMessagePage/PrivateMessagePage';
 import VkLogin from './modules/WelcomePage/VkLogin/VkLogin';
 import VkLoginName from './modules/WelcomePage/VkLogin/VkLoginName';
+import UserVideoArchive from './components/pages/userVideoArchive/userVideoArchive';
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
         <Route path='login/registration/' element={<RegistrationPage/>} />
         <Route path='userclean/' element={<ClearUserService/>}/>
         <Route path='userVideoPage/' element={<UserVideoPage/>}/>
+        <Route path='userVideoArchive/' element={<UserVideoArchive/>} />        
         <Route path='privateMessages/' element={<PrivateMessagePage/>} />
         <Route path='/login/:params' element={<VkLogin />} />
         <Route path='/retrieveName/:params' element={<VkLoginName />} />

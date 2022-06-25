@@ -42,12 +42,15 @@ function _UserVideoPage(props) {
     const [userID, setUserID] = useState('')
     const [loadingVideoActive, setLoadingVideoActive] = useState(false)
     const [deleteMode, setDeleteMode] = useState(false)
+    const [archiveMode, setArchiveMode] = useState(false)
+
     const [listFilesVideosToDelete, setListFilesVideosToDelete] = useState([])
+    const [listFilesVideosToArchive, setListFilesVideosToArchive] = useState([])
     const [isVideoLoaded, setIsVideoLoaded] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
     const [queryVideoInput, setQueryVideoInput] = useState('')
     const [queryDescriptionInput, setQueryDescriptionInput] = useState('')
-
+    
     // оптимизирую словари
     // получаем словарь
     // useEffect(()=>{
@@ -73,7 +76,7 @@ function _UserVideoPage(props) {
     }, [userId])
     
     useEffect(()=>{
-        setUserVideoList(props.videoUserOwnerPreviews)
+        setUserVideoList(props.videoUserOwnerPreviews?.filter(({archived}) => archived !== true))
     },[props.videoUserOwnerPreviews])
     
     // Блок фильтрации роликов//////////////////////////////////////////
@@ -87,6 +90,7 @@ function _UserVideoPage(props) {
     function modalActivation(e) {
         e.preventDefault()
         setDeleteMode(false)
+        setArchiveMode(false)
         setLoadingVideoActive(true)
         createNewVideoAction(queryVideoInput, queryDescriptionInput, usersDict, props.createNewVideo)
     }
@@ -122,6 +126,8 @@ function _UserVideoPage(props) {
         // кнопка отправки видео в форме
         function submitAddNewVideoForm(){
             submitAddNewVideoFormAction(queryVideoInput, queryDescriptionInput, props.newVideoResult.id, props.putToBase)
+            setIsVideoLoaded(false)
+            setIsImageLoaded(false)
             }
 
         // action если загрузили все то форму гасим.
@@ -137,23 +143,39 @@ function _UserVideoPage(props) {
         
         // -------------------Обработка добавления к списку удаления и удаления оттуда
         function addToSetListFilesVideosToDelete(id){
-            setListFilesVideosToDelete([...listFilesVideosToDelete,  {'id': id}])
+            if (deleteMode) {
+                setListFilesVideosToDelete([...listFilesVideosToDelete,  {'id': id}])
+                console.log('deletel', [...listFilesVideosToDelete,  {'id': id}])
+            }
+
+            if (archiveMode) {
+                setListFilesVideosToArchive([...listFilesVideosToArchive,  {'id': id}])
+                console.log('id', id)
+                console.log('archival', [...listFilesVideosToArchive,  {'id': id}])
+            }
         }
         
         function deleteFromSetListFilesVideosToDelete(id){
-            setListFilesVideosToDelete(listFilesVideosToDelete.filter(file => file.id !== id))
-        }
+            if (deleteMode) {
+                setListFilesVideosToDelete(listFilesVideosToDelete.filter(file => file.id !== id))
+            }
+            if (archiveMode) {
+                setListFilesVideosToArchive(listFilesVideosToArchive.filter(file => file.id !== id)) 
+            }
 
+        }
 
         // реагируем на подрузку видео
         useEffect(()=>{
            // console.log('gotovo', props.postToBaseMediaResult.length)
-            if (props.postToBaseMediaResult.length){
+            if (props.newVideoResult.status === 201){
                 props.getVideoFile(props.newVideoResult.id)
             }
-        },[props.postToBaseMediaResult])
+            console.log('1111111111111', props.newVideoResult)
+        },[props.newVideoResult])
 
 
+        console.log('NEW VIDEO videoObject', props.videoObject)
     return (
         <>
             <Header/>
@@ -169,8 +191,12 @@ function _UserVideoPage(props) {
                 setUserVideoList={setUserVideoList}
                 listFilesVideosToDelete={listFilesVideosToDelete}
                 setListFilesVideosToDelete={setListFilesVideosToDelete}
+                listFilesVideosToArchive={listFilesVideosToArchive}               
+                setListFilesVideosToArchive={setListFilesVideosToArchive}
                 deleteFromBase={props.deleteFromBase}
+                putToBase={props.putToBase}
                 modalActivation={modalActivation}
+                setArchiveMode={setArchiveMode}
             />
 
             <div className={cl.PaddingForVideoAtUsersPage}>
@@ -180,6 +206,7 @@ function _UserVideoPage(props) {
                         listFiles={userVideoList}
                         filteredVideo={filteredVideo}
                         deleteMode={deleteMode}
+                        archiveMode={archiveMode}
                         addToSetListFilesVideosToDelete={addToSetListFilesVideosToDelete}
                         deleteFromSetListFilesVideosToDelete={deleteFromSetListFilesVideosToDelete}
                         
@@ -203,6 +230,8 @@ function _UserVideoPage(props) {
                     submitVideo={submitVideo}
                     handlePreviewSubmit={handlePreviewSubmit}
                     disabled={isVideoLoaded && isImageLoaded && !!queryVideoInput && !!queryDescriptionInput }
+                    isVideoLoaded={isVideoLoaded}
+                    isImageLoaded={isImageLoaded}
                     submitAddNewVideoForm={submitAddNewVideoForm}
                     videoObject={props.videoObject}
                 />

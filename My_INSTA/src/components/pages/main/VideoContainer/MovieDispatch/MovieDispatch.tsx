@@ -20,6 +20,7 @@ interface IMovieDispatch {
     id: number, 
     author: string, 
     deleteMode: void, 
+    archiveMode: void,
     addToSetListFilesVideosToDelete: void,
     deleteFromSetListFilesVideosToDelete: void,
     props: object
@@ -32,6 +33,7 @@ const _movieDispatch = ({
     id, 
     author, 
     deleteMode, 
+    archiveMode,
     addToSetListFilesVideosToDelete,
     deleteFromSetListFilesVideosToDelete,
     ...props
@@ -70,7 +72,7 @@ const _movieDispatch = ({
 
     } 
 
-
+    console.log('archive', archiveMode)
     return (
         <>
             {userForNewChat
@@ -89,7 +91,7 @@ const _movieDispatch = ({
 
 
 
-            <div className={cl.ContainerConstruction + ' ' + (deleteMode ? cl.checkBoxDeleteMode : ' ')}>
+            <div className={cl.ContainerConstruction + ' ' + (deleteMode ? cl.checkBoxDeleteMode : ' ' + (archiveMode ? cl.checkBoxDeleteMode : ' '))}>
 
                 <div className={cl.checkBoxStyle}>
                     <input 
@@ -103,16 +105,17 @@ const _movieDispatch = ({
 
 
 
+
                 <div className={cl.InnerBlock}>
                     <NavLink to={`/video/${id}`}>
                         <img src={url} alt='LinkToFullVideo'/>
                     </NavLink>
                 </div>
 
-            <div className={cl.InnerText}>
-                <h5><span>Название: </span>{title}</h5>
-            </div>
-            <div className={cl.InnerText}>
+                <div className={cl.InnerText}>
+                    <h5><span>Название: </span>{title}</h5>
+                </div>
+                <div className={cl.InnerText}>
                     <h5><span>Описание: </span> {description}</h5>
                 </div>
     

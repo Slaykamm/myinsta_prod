@@ -6,7 +6,8 @@ import { clearDeletedVideo } from '../../../../services/filterQuery'
 function VideoContainer({
     listFiles, 
     filteredVideo, 
-    deleteMode, 
+    deleteMode,
+    archiveMode,
     addToSetListFilesVideosToDelete,
     deleteFromSetListFilesVideosToDelete,
     lastVideosForUser,
@@ -35,6 +36,7 @@ function VideoContainer({
                                             create_at={video.create_at} 
                                             author={video.author}
                                             deleteMode={deleteMode}
+                                            archiveMode={archiveMode}
                                             addToSetListFilesVideosToDelete={addToSetListFilesVideosToDelete}
                                             deleteFromSetListFilesVideosToDelete={deleteFromSetListFilesVideosToDelete}
                                         />      

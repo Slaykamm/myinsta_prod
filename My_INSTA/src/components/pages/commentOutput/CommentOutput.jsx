@@ -43,6 +43,8 @@ function _CommentOutput({videoID, ...props}) {
     const [editedComment, setEditedComment] = useState({})
 
 
+    
+
     const navigate = useNavigate()
 
     //console.log('CommentOutput rendered 6 times ')
@@ -66,7 +68,10 @@ function _CommentOutput({videoID, ...props}) {
         }
         else {
             //setComments(get(props.comments, [0, 'data']))
+
+            
             setComments(props.commentsWithQuotationsResult)
+            console.log('comments', props.commentsWithQuotationsResult.filter(({id}) => id !== 9))
         }
     },[props.commentsWithQuotationsResult])
 

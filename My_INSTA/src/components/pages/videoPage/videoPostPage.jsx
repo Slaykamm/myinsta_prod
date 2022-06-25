@@ -145,21 +145,10 @@ function _VideoPostPage(props) {
                         <Footer/>   
                     </div>   
                 </div>     
-
-
             :
                 <p> Ожидаение Видео! </p>
-                
-        
-        
-        
         }
-
-
-            
         </>
-
-
     )
 }
 

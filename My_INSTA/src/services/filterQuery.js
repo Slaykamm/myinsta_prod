@@ -16,6 +16,14 @@ export function filterQuery(listFiles, searchQuery) {
                         return usernameResult
                     }
                 }
+
+                if (title.description){
+                    const descriptionResult = (title.description).toLowerCase().includes(searchQuery.toLowerCase()) 
+                    if (descriptionResult) {
+                        return descriptionResult
+                    }
+                }
+
         })
         return filtered
     }
