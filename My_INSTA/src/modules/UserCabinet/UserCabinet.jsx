@@ -27,7 +27,15 @@ import LkAvatarContainer from './LkAvatarContainer/LkAvatarContainer';
 
 
 
-function _UserCabinet(props) {
+function _UserCabinet(
+    {
+        isForeignUserCabinet, 
+        foreignUser,
+        commentPrivateMessege,
+        setForeignUserModal,
+        ...props
+    }
+    ) {
 
 //TODO валидацию на инпуты.
  
@@ -44,6 +52,9 @@ const [userEmail, setUserEmail] = useState('aa')
 const [isSocialAcc, setIsSocialAcc] = useState(false)
 const [userPassword, setPassword] = useState('')
 const [oldPassword, setOldPassword] = useState(false)
+const [disableChangePassword, setDisableChangePassword] = useState()
+
+
 
 
 
@@ -62,13 +73,32 @@ useEffect(()=>{
   },[])
 
   
+console.log('foreignUser2', foreignUser)
+
   useEffect(()=>{
-      if (props.usersDict.length){
-          setUserLogin(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'username']))
-          setUserEmail(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'email']))
-          setIsSocialAcc(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'socialAcc']))
-}
+    console.log('foreignUser3', foreignUser)
+    if (!isForeignUserCabinet){
+
+        if (props.usersDict.length){
+            setUserLogin(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'username']))
+            setUserEmail(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'email']))
+            setIsSocialAcc(get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'socialAcc']))
+    } }
 },[props.usersDict])
+
+
+useEffect(() => {
+        if (foreignUser){
+            setUserLogin(get(filter(props.usersDict, {'username':foreignUser}),[0, 'username']))
+            setUserEmail(get(filter(props.usersDict, {'username':foreignUser}),[0, 'email']))
+
+            console.log('foreignUser', foreignUser)
+            console.log('login', get(filter(props.usersDict, {'username':foreignUser}),[0, 'username']))
+            console.log('email', get(filter(props.usersDict, {'username':foreignUser}),[0, 'email']))
+    }
+}, [foreignUser])
+
+
 
 
 const LKLoginForm = reduxForm({
@@ -201,79 +231,126 @@ const [avaChanged, setAvaChanged] = useState('')
         }
     }, [props.postToBaseMediaResult])
 
+    console.log('111', isForeignUserCabinet)
 
+    const sendPrivateMessage = (e) => {
+        setForeignUserModal(false)
+        commentPrivateMessege(e,  foreignUser)
+    }
 
     return (
-
         <>
+            { !isForeignUserCabinet &&
+            <div>
 
-        
-        <Header/>
-            <Menu 
-                disable
-                value={searchQuery}
-                onChange={checkTheInput}
-                placeholder='Поиск в названиях'
-            />
-        <div className={cl.BaseLayer}>
-            <div className={cl.InnerContainer}>
-                <div>
-                    <h3>Приветстуем Вас {localStorage.getItem('SLNUserName')}</h3>
-                    <h5>для изменения Ваших данных введите новое значение и нажмите изменить.</h5>
+                <Header/>
+                <Menu 
+                    disable
+                    value={searchQuery}
+                    onChange={checkTheInput}
+                    placeholder='Поиск в названиях'
+                />
+            </div>
+            }
 
-                    <LKLoginForm 
-                        onSubmit={onSubmitLogin} 
-                        userLogin={userLogin}
-                        initialValues={{username: 'test'}}
-                        confirmLoginChanged={confirmLoginChanged}
-                        //isError={isError}
-                        />
 
-                    <LKEmailForm 
-                        onSubmit={onSubmitEmail} 
-                        userEmail={userEmail}
-                        confirmEmailChanged={confirmEmailChanged}
+
+            <div className={ !isForeignUserCabinet ? cl.BaseLayer : cl.BaseLayerForeignUser}>
+                <div className={cl.InnerContainer}>
+                    <div>
+                        {!isForeignUserCabinet &&
+                        <div>
+                            <h3>Приветстуем Вас {localStorage.getItem('SLNUserName')}</h3>
+                            <h5>для изменения Ваших данных введите новое значение и нажмите изменить.</h5>
+                        </div>
                         
-                        // isError={isError}
-                    />
-
-                    {!isSocialAcc 
-                        && <LKPasswordForm 
-                            onSubmit={onSubmitPassword} 
-                            oldPassword={oldPassword}
-                            confirmPasswordChanged={confirmPasswordChanged}
-                            
-                        //  isError={isError}
-                        />
-                    }
-
-                {/* <LkAvatarContainer
-                avatarImage={get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar'])}
-                /> */}
-
-                </div>
-
-
-                <div className={cl.UserInfoViewImage}>
-                        {get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar']) 
-                            ? <span> <img src={get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar'])}/></span>
-                            : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='avatar'/></span>
                         }
 
-                        <div className={cl.AvatarButton}>
-                            Для смены аватара выберите другое изображение
-                            <p></p>
-                        <NameForm 
-                            handleSubmit={handleAvatarSubmit}  
-                            />                           
+                        <LKLoginForm 
+                            onSubmit={onSubmitLogin} 
+                            userLogin={userLogin}
+                            initialValues={{username: 'test'}}
+                            confirmLoginChanged={confirmLoginChanged}
+                            disabled={isForeignUserCabinet}
+                            //isError={isError}
+                            />
+
+                        <LKEmailForm 
+                            onSubmit={onSubmitEmail} 
+                            userEmail={userEmail}
+                            confirmEmailChanged={confirmEmailChanged}
+                            disabled={isForeignUserCabinet}
+                            // isError={isError}
+                        />
+
+                        {!isSocialAcc && !isForeignUserCabinet
+                            && <LKPasswordForm 
+                                onSubmit={onSubmitPassword} 
+                                oldPassword={oldPassword}
+                                confirmPasswordChanged={confirmPasswordChanged}
+                                
+                            //  isError={isError}
+                            />
+                        }
+
+                    {/* <LkAvatarContainer
+                    avatarImage={get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar'])}
+                    /> */}
+
+                    </div>
+
+
+                    <div className={cl.UserInfoViewImage}>
+                        {!isForeignUserCabinet ?
+                            <div>
+                                {get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar']) 
+                                    ? <span> <img src={get(filter(props.usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'avatar'])}/></span>
+                                    : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='avatar'/></span>
+                                }
+                            </div>
+                        
+                        :   <div>
+                                {get(filter(props.usersDict, {'username':foreignUser}),[0, 'avatar']) 
+                                    ? <span> <img src={get(filter(props.usersDict, {'username':foreignUser}),[0, 'avatar'])}/></span>
+                                    : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='avatar'/></span>
+                                }
+                    </div>
+
+                        }
+
+                            
+                            {!isForeignUserCabinet &&
+                                <div className={cl.AvatarButton}>
+                                    Для смены аватара выберите другое изображение
+                                    <p></p>
+                                    <NameForm 
+                                        handleSubmit={handleAvatarSubmit}  
+                                        />                           
+                                </div>
+                            }
+
+
+                    </div>
+
+                    {isForeignUserCabinet &&
+                    <div>
+
+                        <div>
                         </div>
 
+                        <MyButton
+                            onClick={e => sendPrivateMessage(e)}
+                        //    onClick={e => commentPrivateMessege(e,  foreignUser)}
+                            >
+                        Написать личное сообщение</MyButton>
 
-                </div>
+                    </div>
+                        
+                    }
 
-            </div>                
+                </div>                
 
-        </div>
+            </div>
 
 
         

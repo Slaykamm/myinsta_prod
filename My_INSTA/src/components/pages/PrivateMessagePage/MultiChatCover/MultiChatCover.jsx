@@ -50,6 +50,7 @@ function _MultiChatCover({
     const [wss, setWss] = useState(null)
     const [wsIncomeMessage, setWsIncomeMessage] = useState()
     const replyBodyRef = useRef(); 
+    const [multyUsersArray, setMultyUsersArray] = useState(usersArray)
 
 
     function startChat(id){
@@ -112,16 +113,20 @@ function _MultiChatCover({
 
 
     function addUserChange(usersArray, value){
+        console.log('222222222222', usersArray)
 
         if ([...usersArray, toNumber(value)].length < 10) {
             const rez = getMultyUsersRoomNameFromIndexesService([...usersArray, toNumber(value), get(filter(usersDict, {'username':localStorage.getItem('SLNUserName')}),[0, 'id'])])
+            if (usersArray) {
+                console.log('before enrich! newRoomMembers', usersArray, value)
+            }
             const [newRoomName, newRoomMembers] = rez
             let newRoomMembersArray = new Array;
             newRoomMembers.map(user =>{
                 newRoomMembersArray.push(user)
             })  
 
-            
+            console.log('TEST USER ARRAY', newRoomMembers)
             const payload = {
                 "privateChatName": newRoomName,
                 "privateRoomMembers": newRoomMembersArray
@@ -129,6 +134,7 @@ function _MultiChatCover({
             const url = '/privaterooms'
            putToBase(payload, url, ID)
 
+           setMultyUsersArray(newRoomMembers)
            console.log('payllll', payload)
 
            //const newGroupMembers = groupMembers.push(notGroupMembers[0])
@@ -152,6 +158,12 @@ function _MultiChatCover({
 
     function removeUserChange(userToRemoveId){
         const groupMembersLocal = getIndexesFromMultyUsersRoomNameService(roomName, ID)
+        console.log('roomName', roomName)
+        console.log('ID', ID)        
+        console.log('multyUsersArray', multyUsersArray)
+        console.log('userToRemoveId', userToRemoveId)
+        //const groupMembersLocal=multyUsersArray
+        console.log('groupMembersLocal', groupMembersLocal)
         const newRoomMembers = without(groupMembersLocal, userToRemoveId)
         const newRoomName = getMultyUsersRoomNameFromIndexesService(newRoomMembers)
         let newRoomMembersArray = new Array;
@@ -166,12 +178,13 @@ function _MultiChatCover({
         const url = '/privaterooms'
         putToBase(payload, url, ID)
 
+        console.log('teeeeest', newRoomMembersArray)
+        setMultyUsersArray(newRoomMembersArray)
 
         const removeMember = filteredUsers.filter(({id}) => id === toNumber(userToRemoveId))
 
         const newGroupMembers = groupMembers.filter(({id}) => id !== toNumber(userToRemoveId))
 
-        console.log('1111111', newGroupMembers)
         setGroupMembers(newGroupMembers)
 
 
@@ -231,7 +244,8 @@ function _MultiChatCover({
                     removeUserChange={removeUserChange}
                     groupMembers={groupMembers}
                     notGroupMembers={notGroupMembers}
-                    usersArray={usersArray}
+                    //usersArray={usersArray}
+                    usersArray={multyUsersArray}
                     ref={replyBodyRef}
                 />
         </MyModalChat>

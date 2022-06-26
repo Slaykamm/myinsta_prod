@@ -1,4 +1,4 @@
-import { isNumber } from 'lodash'
+import { isNumber, uniq } from 'lodash'
 
 
 export function getPrivateRoomNameFromIndexesService(id1, id2) {
@@ -33,7 +33,8 @@ export function getIndexesFromPrivateRoomNameService(roomName){
 
 export function getMultyUsersRoomNameFromIndexesService(indexArray) {
     console.log('indexArray', indexArray)
-    const indexes = indexArray.sort((a,b)=> a-b)
+    const indexArrayUniq = uniq(indexArray)
+    const indexes = indexArrayUniq.sort((a,b)=> a-b)
     const result = '@MULTY_'+indexes.join('_')
     return [result, indexes]
 }

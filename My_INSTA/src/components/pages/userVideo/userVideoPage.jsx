@@ -234,6 +234,7 @@ function _UserVideoPage(props) {
                     isImageLoaded={isImageLoaded}
                     submitAddNewVideoForm={submitAddNewVideoForm}
                     videoObject={props.videoObject}
+                    isEditVideo={false}
                 />
             </MyModal>
         </>

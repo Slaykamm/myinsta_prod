@@ -18,11 +18,22 @@ function UserVideoLoadingForm({
     videoObject,
     isImageLoaded,
     isVideoLoaded,
+    isEditVideo,
+    videoPreview,
+    handleEditVideo,
+    videoId,
     ...props}) {
 
+        console.log('isEditVideo', isEditVideo)
         function submitVideoLoadingForm(e){
             submitAddNewVideoForm()
         }
+
+        function editVideoLoadingForm(e){
+            handleEditVideo(videoId, queryVideoInput, queryDescriptionInput)
+
+        }
+
 
     return (
         <>
@@ -55,46 +66,60 @@ function UserVideoLoadingForm({
 
                         <div className={cl.InnerContainer}>
                         {isImageLoaded             //get(videoObject,['image']) 
-                                ? <span> <img src='http://127.0.0.1:8000/media/avatar/VideoLoaded.jpg' alt='video'/></span>
+                                ? isEditVideo 
+                                    ? <span> <img src={videoPreview} alt='video'/></span>
+                                    : <span> <img src='http://127.0.0.1:8000/media/avatar/VideoLoaded.jpg' alt='video'/></span>
                                 : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='preview'/></span>
                             }
                         </div>
                     
 
 
+                        {!isEditVideo &&
+                            <>
+                                <div className={cl.InnerContainer}>
+                                    <NameForm
+                                    handleSubmit={submitVideo}
+                                    />
+                                </div>
 
+                                <div className={cl.InnerContainer}>
+                                    <NameForm
+                                    handleSubmit={handlePreviewSubmit}
+                                    />
+                                    
+                                </div>
 
-                        <div className={cl.InnerContainer}>
-                            <NameForm
-                            handleSubmit={submitVideo}
-                            />
-                        </div>
-
-                    <div className={cl.InnerContainer}>
-                        <NameForm
-                        handleSubmit={handlePreviewSubmit}
-                        />
-                        
-                    </div>
-
-                        {!isVideoLoaded
-                        ? <div className={cl.InnerContainer}><span>Загрузка Видео</span></div>
-                        : <div className={cl.InnerContainer}><span>Видео загружено</span></div>
+                                    {!isVideoLoaded
+                                    ? <div className={cl.InnerContainer}><span>Загрузка Видео</span></div>
+                                    : <div className={cl.InnerContainer}><span>Видео загружено</span></div>
+                                    }
+                
+                                    {!isImageLoaded  
+                                    ? <div className={cl.InnerContainer}><span>Загрузка Превью</span></div>
+                                    : <div className={cl.InnerContainer}><span>Превью загружено</span></div>
+                                    }
+                            </>
                         }
-                        
-    
-                        {!isImageLoaded  
-                        ? <div className={cl.InnerContainer}><span>Загрузка Превью</span></div>
-                        : <div className={cl.InnerContainer}><span>Превью загружено</span></div>
-                        }
+
 
                 </div>
             </div>
-
-                    <MyButton
-                        onClick={e=>submitVideoLoadingForm(e)}
-                        disabled={!disabled}
-                    >Загрузить видео</MyButton>   
+                {!isEditVideo 
+                
+                ? <MyButton
+                    onClick={e=>submitVideoLoadingForm(e)}
+                    disabled={!disabled}
+                >Загрузить видео</MyButton>   
+                
+                : <MyButton
+                    onClick={e=>editVideoLoadingForm(e)}
+                    >
+                    Изменить видео
+                    </MyButton>
+            
+            }       
+                    
 
         </>
 

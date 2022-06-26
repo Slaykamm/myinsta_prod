@@ -18,7 +18,10 @@ import {
   } from 'video-react';
 import { get, filter } from 'lodash'
 import { getUserDictAPI } from '../../../API/getUserDictAPI'
-import { getUsersDict } from '../../../redux/Selectors/baseSelectors'
+import { 
+    getUsersDict,
+    getPutToBaseResult,
+} from '../../../redux/Selectors/baseSelectors'
 
 
 
@@ -29,12 +32,17 @@ import { getVideoAPI } from '../../../API/getVideoAPI'
 import { getPrivateRooms} from '../../../redux/Selectors/privateRoomsSelector'
 import { getPrivateRoomsAPI } from '../../../API/getPrivateRoomsAPI'
 import MyPrivateWhispModule from '../../../modules/MyPrivateWhispModule/MyPrivateWhispModule'
+import MyButton from '../../../UI/MyButton/MyButton'
+import UserVideoLoadingForm from '../userVideo/userVideoLoadingForm/userVideoLoadingForm'
+import MyModal from '../../../UI/MyModal/MyModal'
+import { putToBaseAPI } from '../../../API/putToBaseAPI'
 
 
 
 function _VideoPostPage(props) {
     const params = useParams()
     const [videoID, setVideoID] = useState('')
+    const [videoEditModal, setVideoEditModal] = useState(false)
 
    // console.log('Rendered _VideoPostPage 6 times')
     if (!videoID){
@@ -66,8 +74,55 @@ function _VideoPostPage(props) {
         setUserPrivateRooms(props.usersPrivateRooms)
     }, [props.usersPrivateRooms])
 
+    const [queryVideoInput, setQueryVideoInput] = useState('')
+    const [queryDescriptionInput, setQueryDescriptionInput] = useState('')
+
+    const editVideo = () => {
+        setVideoEditModal(true)
+        setQueryVideoInput(props.video.title)
+        setQueryDescriptionInput(props.video.description)
+
+    }
+
+    const handleEditVideo = (id, title, description) => {
+        const message = {
+            "title": title,
+            "description": description
+        }
+        const url = '/video'
+        props.putToBase(message, url, id)
+    }
+
+    useEffect(() => {
+        if (props.putToBaseResult === 200){
+            setVideoEditModal(false)
+            window.location.reload()
+
+        }
+    }, [props.putToBaseResult])
+
     return (
         <>
+
+            <MyModal
+            visible={videoEditModal}
+            setVisible={setVideoEditModal}
+            >
+                <UserVideoLoadingForm
+                    isImageLoaded={true}
+                    isVideoLoaded={true}
+                    queryVideoInput={queryVideoInput}
+                    queryDescriptionInput={queryDescriptionInput}
+                    setQueryVideoInput={setQueryVideoInput}
+                    setQueryDescriptionInput={setQueryDescriptionInput}
+                    videoPreview={props.video.image}
+                    isEditVideo={true}
+                    handleEditVideo={handleEditVideo}
+                    videoId={props.video.id}
+                
+                
+                />
+            </MyModal>
 
             {userForNewChat
             ?
@@ -135,6 +190,14 @@ function _VideoPostPage(props) {
                                         >Автор: </span> 
                                     {get(filter(usersDict, {'id': props.video.author}),[0, 'username'])}
                                 </p>
+
+                                {get(filter(usersDict, {'id': props.video.author}),[0, 'username']) === localStorage.getItem('SLNUserName') &&
+                                <p>
+                                    <MyButton
+                                        onClick={editVideo}
+                                    >Редактировать видео</MyButton>
+                                </p>
+                                }
                             </div>
                             
                         </div>
@@ -160,6 +223,7 @@ export default connect(
         video: state.getVideo,
         usersDict: getUsersDict(state),
         usersPrivateRooms: getPrivateRooms(state),
+        putToBaseResult: getPutToBaseResult(state),
 
         }),
 
@@ -175,7 +239,9 @@ export default connect(
     getPrivateRooms: (value) => {
         dispatch(getPrivateRoomsAPI(value))
     },
-
+    putToBase: (value, url, id) => {
+        dispatch(putToBaseAPI(value, url, id))
+    },
     })
     
     

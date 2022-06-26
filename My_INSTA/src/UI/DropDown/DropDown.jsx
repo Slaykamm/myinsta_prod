@@ -4,12 +4,14 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 function DropDown(
-    {setModal, 
-    setModalEdit,
-    commentDelete, 
-    commentPrivateMessege, 
-    replyPrivateWithQuotation,
-    ...props}) {
+    {
+        setModal, 
+        setModalEdit,
+        commentDelete, 
+        commentPrivateMessege, 
+        replyPrivateWithQuotation,
+        ...props
+    }) {
 
     return (
         <div className="mb-2" >
@@ -53,6 +55,8 @@ function DropDown(
                 :   <div>
                         <Dropdown.Divider />
 
+                        {console.log('commentPrivateMessege', commentPrivateMessege)}
+                        {console.log('props.user', props.user)}
                         {commentPrivateMessege
                         ?   <Dropdown.Item 
                                 onClick={e => commentPrivateMessege(e,  props.user)}

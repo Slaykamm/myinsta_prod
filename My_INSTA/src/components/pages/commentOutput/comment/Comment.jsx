@@ -7,6 +7,7 @@ import { useState } from 'react'
 import MyModal from '../../../../UI/MyModal/MyModal'
 import CommentInput from '../CommentInput/CommentInput'
 import DropDown from '../../../../UI/DropDown/DropDown'
+import UserCabinet from '../../../../modules/UserCabinet/UserCabinet'
 
 
 
@@ -28,6 +29,9 @@ function Comment({
     const [modalEdit, setModalEdit] = useState(false)
     const [editComment, setEditComment] = useState(props.text)
 
+    const [foreignUser, setForeignUser] = useState('')
+    const [foreignUserModal, setForeignUserModal] = useState(false)
+
      
     function ReplyTransition(e) {
         e.preventDefault();
@@ -45,9 +49,18 @@ function Comment({
         commentDelete(id)
     }
 
+    const foreignUserModalActivate = (props) => {
+        console.log('hello user', props.user)
+        if (localStorage.getItem('SLNUserName') !== props.user) {
+            setForeignUser(props.user)
+            setForeignUserModal(true)
 
 
+        }
+    }
 
+
+    console.log('333333333', commentPrivateMessege)
     return (
         <>
             <MyModal
@@ -81,7 +94,9 @@ function Comment({
 
                 <div className={cl.commentContainer}>
                     <div className={cl.userInfo}>
-                        <div>
+                        <div 
+                        onClick={() => foreignUserModalActivate(props)}
+                        >
                             {props.avatar 
                             ? <span> <img src={props.avatar} alt='avatar'/></span>
                             : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='avatar'/></span>
@@ -94,6 +109,21 @@ function Comment({
                             <span>{props.user}</span>                        
                         </div>
                 </div>
+
+                <MyModal
+                    visible={foreignUserModal}
+                    setVisible={setForeignUserModal}
+                >
+                    <UserCabinet
+                        isForeignUserCabinet={true}
+                        foreignUser={foreignUser}
+                        commentPrivateMessege={commentPrivateMessege}
+                        setForeignUserModal={setForeignUserModal}
+
+                    />
+                </MyModal>
+
+
 
                 <div className={cl.Context}>
 
@@ -121,13 +151,13 @@ function Comment({
                 <div className={cl.ButtonCollection}>
 
                     <DropDown
-                    setModal={setModal}
-                    setModalEdit={setModalEdit}
-                    user={props.user}
-                    id={props.id}
-                    commentEdit={commentEdit}
-                    commentDelete={DeleteTransition}
-                    commentPrivateMessege={commentPrivateMessege}
+                        setModal={setModal}
+                        setModalEdit={setModalEdit}
+                        user={props.user}
+                        id={props.id}
+                        commentEdit={commentEdit}
+                        commentDelete={DeleteTransition}
+                        commentPrivateMessege={commentPrivateMessege}
 
                     />
 

@@ -2,8 +2,13 @@
     padding: 16rem 0 5rem;
     width: 80%;
     margin-left: 10%;
-
 }
+
+.BaseLayerForeignUser {
+    width: 80%;
+    margin-left: 10%;
+}
+
 
 .InnerContainer{
     color: black;

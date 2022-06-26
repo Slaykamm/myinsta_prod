@@ -6,7 +6,7 @@ import MyButton from '../../../UI/MyButton/MyButton'
 import MyInput from '../MyInput/MyInput'
 import { emailSybmolsValidate, requiredField } from '../../WelcomePage/LoginForm/Validators/validatorsLogin'
 
-function LKEmail({value, userEmail, confirmEmailChanged, ...props}) {
+function LKEmail({value, userEmail, confirmEmailChanged, disabled, ...props}) {
     function changeEmailHandle(event) {
         setUserEmail(event)
     }
@@ -22,32 +22,36 @@ function LKEmail({value, userEmail, confirmEmailChanged, ...props}) {
             >  
 
             <div className={cl.UserInfoViewLabel}>
-                <span>Ваш емаил: <p style={{fontWeight:'bold'}}>{userEmail}</p></span>
+                <span>Eмаил: <p style={{fontWeight:'bold'}}>{userEmail}</p></span>
             </div>
 
+            { !disabled &&
+                <>
+                    <div className={cl.UserInfoViewInput}>
+                        <Field
+                            name={'lkemail'}
+                            type='email'
+                            placeholder='введите новый емаил'
+                            component={MyInput}
+                            validationmessage='Введенная строка не емаил'
+                            validate={[requiredField, emailSybmolsValidate]}
 
-                <div className={cl.UserInfoViewInput}>
-                    <Field
-                        name={'lkemail'}
-                        type='email'
-                        placeholder='введите новый емаил'
-                        component={MyInput}
-                        validationmessage='Введенная строка не емаил'
-                        validate={[requiredField, emailSybmolsValidate]}
+                        />
+                    </div>
+                    <div className={cl.UserInfoViewBtn}>
+                        <MyButton>Изменить</MyButton>
+                    </div>
 
-                    />
-                </div>
+                    <div className={cl.UserInfoViewConfirm}>
+                        {confirmEmailChanged 
+                            ? <span >OK</span>
+                            : <span></span>
+                        }
+                    </div>
+                </>
+                }
 
-                <div className={cl.UserInfoViewBtn}>
-                    <MyButton>Изменить</MyButton>
-                </div>
 
-                <div className={cl.UserInfoViewConfirm}>
-                {confirmEmailChanged 
-                    ? <span >OK</span>
-                    : <span></span>
-                    }
-                </div>   
             </form> 
     
         </>

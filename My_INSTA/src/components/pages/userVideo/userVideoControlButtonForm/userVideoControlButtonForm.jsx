@@ -110,7 +110,9 @@ function UserVideoControlButtonForm(
                 </div>
                 : <div></div>
                 }
-                <div></div>
+                <div>
+                    
+                </div>
                 <div className={cl.ArhiveModeBtn}>
                     <MyButton
                         onClick={e => archiveVideoModeEnable(e)}
