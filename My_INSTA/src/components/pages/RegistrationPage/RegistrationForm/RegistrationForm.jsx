@@ -6,20 +6,30 @@ import MyInput from '../../../../modules/UserCabinet/MyInput/MyInput'
 //import MyInput from './MyInput/MyInput'
 import MyButton from '../../../../UI/MyButton/MyButton'
 import { emailSybmolsValidate, loginSybmolsValidate, passwordSymbolsValidate, phoneSybmolsValidate, requiredField } from '../../../../modules/WelcomePage/LoginForm/Validators/validatorsLogin'
+import axios from 'axios'
+import { store } from '../../../../redux/reducers/index'
 
+import { getEmailFromFormValues } from '../../../../redux/Selectors/welcomePageSelectors'
+import { useSelector } from "react-redux"
 
-function RegistrationForm(props) {
+function RegistrationForm({user, ...props}) {
 
     const [isFormCorrectAndConfirmed, setIsFormCorrectAndConfirmed] = useState(false)
 
+    const userEmail = useSelector(getEmailFromFormValues)
     function regEmailButtonHandle(event) {
-        event.preventDefault()
+        event.preventDefault();
+
+        axios.get(`http://127.0.0.1:8000/api/auth/emailverify/?id=${user.userID}&author=${user.authorID}&email=${userEmail}`)
+        .then(res => {
+            console.log('put to storage', res)
+        })
     }
 
 
     function regPhoneButtonHandle(event) {
         event.preventDefault()
-    }
+    }   
 
     const isPhoneConfirmed = false
     return (

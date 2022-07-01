@@ -14,7 +14,6 @@ import { getUserDictAPI } from '../../API/getUserDictAPI';
 import { getUserTokenAPI } from '../../API/getUserToken';
 import { getCheckUserAPI } from '../../API/getCheckUserAPI';
  
-import _ from 'lodash' 
 
 const WelcomePage = (props) => {
     const [isError, setIsError] = useState(false)
@@ -49,7 +48,6 @@ const WelcomePage = (props) => {
         if ((get(props.userCheckResult, ['0', 'status'])) === 200){
            navigateMain("/main")
         }
-        console.log('testest', props.userCheckResult)
     },[props.userCheckResult])
 
 

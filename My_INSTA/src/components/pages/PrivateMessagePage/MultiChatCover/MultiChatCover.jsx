@@ -9,6 +9,7 @@ import {
     toNumber,
     without,
     map,
+    uniq
 } from 'lodash'
 import MyModalChat from '../PrivateMessageContainer/ModalChat/ModalChat'
 import CommentInput from '../../../../components/pages/commentOutput/CommentInput/CommentInput'
@@ -51,6 +52,7 @@ function _MultiChatCover({
     const [wsIncomeMessage, setWsIncomeMessage] = useState()
     const replyBodyRef = useRef(); 
     const [multyUsersArray, setMultyUsersArray] = useState(usersArray)
+
 
 
     function startChat(id){
@@ -158,12 +160,7 @@ function _MultiChatCover({
 
     function removeUserChange(userToRemoveId){
         const groupMembersLocal = getIndexesFromMultyUsersRoomNameService(roomName, ID)
-        console.log('roomName', roomName)
-        console.log('ID', ID)        
-        console.log('multyUsersArray', multyUsersArray)
-        console.log('userToRemoveId', userToRemoveId)
-        //const groupMembersLocal=multyUsersArray
-        console.log('groupMembersLocal', groupMembersLocal)
+        //const groupMembersLocal = multyUsersArray
         const newRoomMembers = without(groupMembersLocal, userToRemoveId)
         const newRoomName = getMultyUsersRoomNameFromIndexesService(newRoomMembers)
         let newRoomMembersArray = new Array;
@@ -178,17 +175,16 @@ function _MultiChatCover({
         const url = '/privaterooms'
         putToBase(payload, url, ID)
 
-        console.log('teeeeest', newRoomMembersArray)
-        setMultyUsersArray(newRoomMembersArray)
+        
+       
 
         const removeMember = filteredUsers.filter(({id}) => id === toNumber(userToRemoveId))
 
         const newGroupMembers = groupMembers.filter(({id}) => id !== toNumber(userToRemoveId))
 
         setGroupMembers(newGroupMembers)
+      //  setMultyUsersArray(newGroupMembers)
 
-
-        console.log('newNotMembers', removeMember[0])
         setNotGroupMembers([...notGroupMembers, removeMember[0]])
     }
         useEffect(()=>{

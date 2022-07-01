@@ -115,13 +115,14 @@ function RegistrationPage(props) {
     const navigate = useNavigate()
 
     useEffect(()=>{
+
         if (props.putNewUserDataResult.status === 200){
-
             navigate("/login")
-
         }
     },[props.putNewUserDataResult])
 //===========все. юзер создан!
+
+
 
 
     const RegForm = reduxForm({
@@ -165,6 +166,7 @@ function RegistrationPage(props) {
 
                             <RegForm
                                 onSubmit={submitRegistrationData}
+                                user={user}
                             />
                         </div>
 

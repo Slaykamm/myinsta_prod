@@ -32,12 +32,13 @@ useEffect(()=>{
 // вывод ленты свежих видео для юзера
 useEffect(()=>{
     setListFiles(props.videoPreviews.filter(({archived, title}) => 
-        (archived !== true && title.slice(0, 5) !== '16560')
+        (archived !== true && title.slice(0, 4) !== '1656')
     ))
 },[props.videoPreviews])
 
 
 const lastVideosForUser = reverse(sortBy(listFiles, ['create_at']))
+console.log('lastvideosforUser', lastVideosForUser)
 //const filterArchived = sortedStream.filter(({archived}) => archived !== true)
 
 

@@ -7,6 +7,8 @@ export const getUsersDict = (state) => {
     return state.usersDict || []
 } 
 
+
+
 export const getPrivateRooms = (state) => {
         return state?.getPrivateRooms || []
   
