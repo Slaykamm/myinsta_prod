@@ -5,34 +5,87 @@ import { Field } from 'redux-form'
 import MyInput from '../../../../modules/UserCabinet/MyInput/MyInput'
 //import MyInput from './MyInput/MyInput'
 import MyButton from '../../../../UI/MyButton/MyButton'
+import PhoneConfirmationStep from './phoneConfirmationStep/PhoneConfirmationStep'
 import { emailSybmolsValidate, loginSybmolsValidate, passwordSymbolsValidate, phoneSybmolsValidate, requiredField } from '../../../../modules/WelcomePage/LoginForm/Validators/validatorsLogin'
 import axios from 'axios'
 import { store } from '../../../../redux/reducers/index'
+import { get } from 'lodash'
 
-import { getEmailFromFormValues } from '../../../../redux/Selectors/welcomePageSelectors'
+import { 
+    getEmailFromFormValues,
+    getPhoneFromFormValues
+} from '../../../../redux/Selectors/welcomePageSelectors'
 import { useSelector } from "react-redux"
+import MyModal from '../../../../UI/MyModal/MyModal'
+import { createSelector } from 'reselect'
+import { useDispatch } from 'react-redux'
+import { setIsEmailConfirmedAction } from '../../../../redux/ActionCreators'
+import { getIsRegistrationButtonEnabled } from '../../../../redux/Selectors/welcomePageSelectors';
 
-function RegistrationForm({user, ...props}) {
+function RegistrationForm(
+    {
+        user, 
+        newChatName,
+        ...props
+    }) {
 
-    const [isFormCorrectAndConfirmed, setIsFormCorrectAndConfirmed] = useState(false)
+    const isRegistrationButtonEnable = useSelector(getIsRegistrationButtonEnabled)
+    const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
+
 
     const userEmail = useSelector(getEmailFromFormValues)
+
+    const dispatch = useDispatch()
     function regEmailButtonHandle(event) {
         event.preventDefault();
 
         axios.get(`http://127.0.0.1:8000/api/auth/emailverify/?id=${user.userID}&author=${user.authorID}&email=${userEmail}`)
         .then(res => {
             console.log('put to storage', res)
+            dispatch(setIsEmailConfirmedAction(true))
+
+
         })
     }
 
 
+
+    const userPhone = useSelector(getPhoneFromFormValues)
+
     function regPhoneButtonHandle(event) {
-        event.preventDefault()
+        event.preventDefault();
+        console.log('state', userPhone)
+        const body = {
+            number: userPhone,
+            userId: user.userID,
+            authorId: user.authorID
+          }
+
+        
+        //TODO vinesty v thunk
+        axios.post('http://127.0.0.1:8000/send_otp/', body)
+        .then(resp => {
+            console.log('confimration phone number', resp.data)
+            
+        })
+        setConfirmPhoneModal(true)
     }   
 
-    const isPhoneConfirmed = false
+
+
+
+    
     return (
+        <>
+            <PhoneConfirmationStep
+                user={user}
+                putToBase={props.putToBase}
+                confirmPhoneModal={confirmPhoneModal} 
+                setConfirmPhoneModal={setConfirmPhoneModal}
+                newChatName={newChatName}
+            
+            />
+       
         <form  
             className={cl.UserInfoView} 
             onSubmit={props.handleSubmit}
@@ -142,14 +195,14 @@ function RegistrationForm({user, ...props}) {
             </div> 
 
             <MyButton
-            //disabled={isPhoneConfirmed && isEmailConfirmed}
+                disabled={!isRegistrationButtonEnable}
             
             >
                 Регистрация
             </MyButton>
 
         </form> 
-
+    </>
     )
 }
 

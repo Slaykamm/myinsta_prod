@@ -15,13 +15,15 @@ import {
     getPutNewUserDataResult,
     getUserAvatarResult
 } from '../../../redux/Selectors/baseSelectors'
+
 import { putNewUserDataAPI } from '../../../API/putNewUserDataAPI';
 import Header from '../header/Header'
 import RegistrationForm from './RegistrationForm/RegistrationForm';
-import NameForm from '../../../UI/LoadFIlesForm/NameForm';
-
 import cl from './RegistrationPage.module.css'
 import { getUserAvatarAPI } from '../../../API/getUserAvatarAPI';
+import { store } from '../../../redux/reducers/index'
+import UserAvatarContainer from './userAvatarContainer/UserAvatarContainer';
+import { useSelector } from 'react-redux';
 
 
 function RegistrationPage(props) {
@@ -29,6 +31,9 @@ function RegistrationPage(props) {
     const [editUser, setEditUser] = useState({})
     const [aaa, setAaa] = useState()
     const [newUserToken, setNewUserToken] = useState()
+    const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
+    const [smsCodeToConfirm, setSmsCodeToConfirm] = useState('')
+    const [wrongSmsCode, setWrongSmsCode] = useState(false)
     
     const [user, setUser] = useState({
         userID: null,
@@ -39,10 +44,10 @@ function RegistrationPage(props) {
         authorAvatar: null,
     }
 )
-    const [userAvatar, setUserAvatar] = useState()
 
     //============после создания нового будущего юзера. присваиваем юзеру в стейте: id USER и id Author
 
+  
 
     useEffect(()=>{
         props.createUser()
@@ -119,6 +124,9 @@ function RegistrationPage(props) {
         if (props.putNewUserDataResult.status === 200){
             navigate("/login")
         }
+        else {
+            window.alert('Пользователь с данным ником уже зарегистрирован')
+        }
     },[props.putNewUserDataResult])
 //===========все. юзер создан!
 
@@ -129,64 +137,40 @@ function RegistrationPage(props) {
         form: 'RegistrationForm'
     }) (RegistrationForm)
 
+    if (confirmPhoneModal){
+        console.log('pokazivaem modalku')
+    }
 
-    // обработка загрузки аватарки========================+
-    function handleAvatarSubmit(e) {
-        e.preventDefault();
-        if (userForEdit.id){
-            let files = e.target.files
-            var formData = new FormData;
-            formData.append('imagefile', files[0]);
-            const url = `http://127.0.0.1:8000/api/author/${userForEdit.id}/`
-
-            props.postToBaseMedia(formData, url)
-            }
-        }
-
-    useEffect(()=> {
-        if (props.postToBaseMediaResult.status === 200){
-                props.getUserAvatar(user.authorID)
-        }
-    }, [props.postToBaseMediaResult])
-
-    useEffect(()=>{
-        if (props.getUserAvatarResult.status === 200){
-            setUserAvatar(props.getUserAvatarResult.avatar)
-        }
-    }, [props.getUserAvatarResult])
+    console.log('store', store.getState())
 
     return (
         <>
             <Header/>
-                <div className={cl.BaseLayer}>
-                    <div className={cl.InnerContainer}>
-                        <div>
-                            <h3>Приветстуем Вас на форме регистрации</h3>
-                            <h5>для внесения Ваших данных введите знание и нажмите ок.</h5>
 
-                            <RegForm
-                                onSubmit={submitRegistrationData}
-                                user={user}
-                            />
-                        </div>
 
-                        {console.log('URL2', get(filter(props.usersDict, {'userID': userForEdit.id}),['0', 'avatar']))}
+            <div className={cl.BaseLayer}>
+                <div className={cl.InnerContainer}>
+                    <div>
+                        <h3>Приветстуем Вас на форме регистрации</h3>
+                        <h5>для внесения Ваших данных введите знание и нажмите ок.</h5>
 
-                        <div className={cl.UserInfoViewImage}>
-                            {userAvatar
-                                ? <span><img src={userAvatar} alt='avatar'/></span>
-                                : <span><img src='http://127.0.0.1:8000/media/avatar/default.jpg' alt='avatar'/></span>
-                            }
+                        <RegForm
+                            onSubmit={submitRegistrationData}
+                            user={user}
+                            confirmPhoneModal={confirmPhoneModal}
+                            setConfirmPhoneModal={setConfirmPhoneModal}
+                            newChatName={smsCodeToConfirm}
+                            putToBase={props.putToBase}
 
-                            <div className={cl.AvatarButton}>
-                                <p></p>
-                                <NameForm 
-                                    handleSubmit={handleAvatarSubmit}  
-                                    />                           
-                            </div>
-                        </div>
+                        />
                     </div>
+
+                        <UserAvatarContainer
+                            userForEdit={userForEdit}
+                            user={user}
+                        />
                 </div>
+            </div>
         </>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import cl from './MyInput.module.css'
 
 function MyInput({input, meta, validationmessage, ...props}) {
-    const hasError = meta.touched && meta.error && true
+    const hasError = meta?.touched && meta?.error && true
    // console.log('neta', meta.error)
    // console.log('hasErrror', meta.valid)
 

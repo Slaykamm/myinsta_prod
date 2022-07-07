@@ -27,6 +27,7 @@ import putNewUserDataReducer from "./putNewUserDataReducer";
 import getPrivateRoomsMultyUsersReducer from "./getPrivateRoomsMultyUsersReducer";
 import setWsReducer from "./setWsReducer";
 import getUserAvatarReducer from "./getUserAvatarReducer";
+import setUserConfirmationsReducer from "./setUserConfirmationsReducer";
 import {reducer as formReducer} from 'redux-form'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -61,7 +62,7 @@ const rootReducer = combineReducers({
     IsErrorAPI,  //так и не нашел применения пока. потом можно удалить TODO
     UserToken,
     getUserAvatarReducer,
-    
+    setUserConfirmationsReducer,
     form: formReducer
 })
 

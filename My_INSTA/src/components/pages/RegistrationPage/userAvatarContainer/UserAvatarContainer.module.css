@@ -1,0 +1,21 @@
+.UserInfoViewImage{
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserInfoViewImage img{
+    height: 200px;
+
+    border-radius: 10px;
+    
+}
+
+.UserInfoViewImage button{
+    margin-top: 20px;
+    width: 100px;
+
+}
+

@@ -27,6 +27,8 @@ export const getUserDictAPI  = () => {
                                         socialAcc: ava[0].socialAcc,
                                         author: ava[0].name, 
                                         userID: ava[0].id,
+                                        isEmailConfirmed: ava[0].isEmailConfirmed,
+                                        isPhoneConformed: ava[0].isPhoneConformed,
                                     }
                                 }
                             )  // если есть тогда присоеднием к юзерам аватар и телефон
