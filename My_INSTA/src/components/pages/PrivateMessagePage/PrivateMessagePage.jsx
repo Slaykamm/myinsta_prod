@@ -111,8 +111,17 @@ function PrivateMessagePage(props) {
             return date.create_at > roomDate
         })
         const lastFileteredAndSorted = get(last(filterdAndSorted),['text'])
+        console.log('test date', lastFileteredAndSorted)
         return lastFileteredAndSorted
     }
+
+    // код ревью: 
+    //  получаем все мессаджи 
+    //  фильтруем на мессаджи, которые не автора. 
+    //  сортируем их по дате.
+    //  получаем дату последнего захода в комнату
+    //  филтруем и возвращаем список мессаджей не автора после даты последнего захода
+    //  возвращаем длинну (это будет кол во сообщений)
 
     function getNumberNewMessages(roomID){
         const roomsMessages = flatten(props.privateMessages)
