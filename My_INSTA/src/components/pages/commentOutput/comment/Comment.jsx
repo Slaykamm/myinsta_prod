@@ -29,9 +29,6 @@ function Comment({
     const [modalEdit, setModalEdit] = useState(false)
     const [editComment, setEditComment] = useState(props.text)
 
-    const [foreignUser, setForeignUser] = useState('')
-    const [foreignUserModal, setForeignUserModal] = useState(false)
-
      
     function ReplyTransition(e) {
         e.preventDefault();
@@ -49,18 +46,22 @@ function Comment({
         commentDelete(id)
     }
 
+
+    const [foreignUser, setForeignUser] = useState('')
+    const [foreignUserModal, setForeignUserModal] = useState(false)
+
+
     const foreignUserModalActivate = (props) => {
         console.log('hello user', props.user)
         if (localStorage.getItem('SLNUserName') !== props.user) {
             setForeignUser(props.user)
             setForeignUserModal(true)
-
-
         }
     }
 
 
-    console.log('333333333', commentPrivateMessege)
+    
+
     return (
         <>
             <MyModal
@@ -109,7 +110,7 @@ function Comment({
                             <span>{props.user}</span>                        
                         </div>
                 </div>
-
+                {/* Блок приватного мессаджа по клику на ник */}
                 <MyModal
                     visible={foreignUserModal}
                     setVisible={setForeignUserModal}

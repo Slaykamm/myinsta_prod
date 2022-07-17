@@ -130,7 +130,7 @@ function _VideoPostPage(props) {
 
                 <MyPrivateWhispModule 
                     userForNewChat={userForNewChat}
-                    usersDict={usersDict}
+                    // usersDict={usersDict}
                     usersPrivateRooms={userPrivateRooms}
                     setUserForNewChat={setUserForNewChat}
                     setUserPrivateRooms={setUserPrivateRooms}

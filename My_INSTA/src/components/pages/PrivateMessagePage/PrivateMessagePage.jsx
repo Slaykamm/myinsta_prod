@@ -43,7 +43,10 @@ import { postToBaseAPI } from '../../../API/postToBaseAPI'
 import MyInput from '../../../UI/MyInput/MyInput'
 import MySelect from '../../../UI/Myselect/MySelect'
 import MyRedButton from '../../../UI/MyRedButton/MyRedButton'
-
+import axios from 'axios'
+import { appendScript } from '../../../services/webPushService/appendScript'
+// import { push } from '../../../services/webPushService/push'
+// import ScriptTag from 'react-script-tag';
 
 function PrivateMessagePage(props) {
     
@@ -312,11 +315,59 @@ function PrivateMessagePage(props) {
         },[props.deleteFromBaseResult])
 
 
+        useEffect(() => {
+            addEventListener('load', async () => {
+                if ('serviceWorker' in navigator) {
+                  navigator.serviceWorker
+                    .register('./sw.js')
+                        // /sworker)
+                    .then(resp =>{
+                    })
+                    .catch(e => console.log("EEEEERRRROR", e))  
+                }
+            })
+        }, [])
 
+        async function webPush(e) {
+            e.preventDefault;
+            console.log('good')
+            let sw =  await navigator.serviceWorker.ready;
+            console.log('1', sw)
+            let push = await sw.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: 'BHSmG74ohnQBTaew7auhHQTFAfV088ddMeu4A4h0rUHCzKJAlMAceYVamAKkOvWLzxR-S3vSlAQpjpmUpa7bmwk'
+            })
+            // console.log('tupo', push)
+            // console.log(JSON.stringify(push))
+        //     // window.localStorage.setItem('userWebPush', JSON.stringify(push))
+        //     const body = {'head': '111', 'body': '222', 'id': '221'}
+        //     const sss = axios.post('http://127.0.0.1:8000/send_push/', body)
+        //     sss.then(resp => {
+        //         console.log('RESPONSE', resp)
+        //     })
+        //     sss.catch(e => console.log('ERRROR', e))
+        }
+
+        const makePush = (e) => {
+            e.preventDefault();
+            // window.push();
+            // const script = document.createElement("script");
+            // script.src = './push';
+            // script.async = true;
+            // document.body.appendChild(script);
+            //appendScript("../../../services/webPushService/push.js");
+
+            // if ('Notification' in window) {
+            //     if (window.Notification.permission === 'granted') {
+            //       new window.Notification('Вы получили новое сообщение!');
+            //     }
+            //   }
+        }
 
 
     return (
         <>
+
             <MyModal
                 visible={newChatModal}
                 setVisible={setNewChatModal}
@@ -361,9 +412,19 @@ function PrivateMessagePage(props) {
         placeholder='Поиск пользователя для отправки сообщений'
         />
 
+
         <div>
             <div className={cl.BaseLayer}>
                 <div className={cl.BaseLine}>
+                {/* <button
+                onClick={e => webPush(e)}
+                >subscribve</button>
+                <p></p>
+                <button
+                onClick={e => makePush(e)}
+                >
+                    Make Push
+                </button> */}
 
                     <div className={cl.PrivateChatsbtnGrp}>
                         <MyButton

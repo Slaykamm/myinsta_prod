@@ -15,6 +15,7 @@ import { NavLink } from 'react-router-dom';
 import UserStream from './UserStream/UserStream';
 
 
+
 const _MainPage = (props) => {
 
 const [listFiles, setListFiles] = useState()
@@ -49,6 +50,8 @@ function checkTheInput(event){
 }
 
 const filteredVideo=filterQuery(listFiles, searchQuery)
+
+
 
 
 // ВСЕ
@@ -95,3 +98,6 @@ export default connect(
     })
 
 )(MainPage); 
+
+
+

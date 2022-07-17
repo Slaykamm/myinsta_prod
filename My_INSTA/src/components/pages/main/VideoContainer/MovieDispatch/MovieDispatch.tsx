@@ -11,6 +11,8 @@ import MyPrivateWhispModule from '../../../../../modules/MyPrivateWhispModule/My
 import { getPrivateRooms } from '../../../../../redux/Selectors/privateRoomsSelector'
 import { getPrivateRoomsAPI } from '../../../../../API/getPrivateRoomsAPI'
 import { getUsersDict } from '../../../../../redux/Selectors/baseSelectors'
+import MyModal from '../../../../../UI/MyModal/MyModal';
+import UserCabinet from '../../../../../modules/UserCabinet/UserCabinet';
 
 
 interface IMovieDispatch {
@@ -68,19 +70,53 @@ const _movieDispatch = ({
 
 
         props.getPrivateRooms(user)
+        console.log('11111111111111111111')
         setUserForNewChat(user)
 
     } 
 
+
+    // const [foreignUser, setForeignUser] = useState('')
+    // const [foreignUserModal, setForeignUserModal] = useState(false)
+
+
+    // const foreignUserModalActivate = (user: number) => {
+    //     const userName: string = get(filter(usersDict, {id: user}), [0, 'username'])
+    //     if (localStorage.getItem('SLNUserName') !== userName) {
+    //         setForeignUser(userName)
+    //         setForeignUserModal(true)
+    //     }
+    // }
+
+
+
+
     console.log('archive', archiveMode)
     return (
         <>
+                {/* <MyModal
+                    visible={foreignUserModal}
+                    setVisible={setForeignUserModal}
+                >
+                    <UserCabinet
+                        isForeignUserCabinet={true}
+                        foreignUser={foreignUser}
+                        commentPrivateMessege={callModalForPrivate}
+                        setForeignUserModal={setForeignUserModal}
+
+                    />
+                </MyModal> */}
+
+
+
+
+
             {userForNewChat
             ?   <div>
                 {console.log('teeeest usersPrivateRooms', props.usersPrivateRooms)}
                 <MyPrivateWhispModule 
                 userForNewChat={userForNewChat}
-                usersDict={usersDict}
+                //usersDict={usersDict}
                 usersPrivateRooms={props.usersPrivateRooms}
                 />  
                 </div>

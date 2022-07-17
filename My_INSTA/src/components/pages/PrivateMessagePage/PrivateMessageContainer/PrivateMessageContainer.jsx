@@ -51,8 +51,6 @@ function _PrivateMessageContainer({
 
     const usersDict = JSON.parse(window.localStorage.getItem('usersDict'))
     function startChat(id){
-        console.log('store', store.getState())
-
         setModal(true)
 
         const ws = new WebSocket('ws://127.0.0.1:8000/api/prvatemessages/')
@@ -78,12 +76,38 @@ function _PrivateMessageContainer({
 
     }
 
+
+        function registerServiceWorker() {
+            return navigator.serviceWorker.register("/sw.js");
+          }
+        async function askUserPermission() {
+            return await Notification.requestPermission();
+        }
+
+        async function createNotificationSubscription() {
+            //wait for service worker installation to be ready
+            const serviceWorker = await navigator.serviceWorker.ready;
+            // subscribe and return the subscription
+            return await serviceWorker.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: pushServerPublicKey
+            });
+          }
+
     useEffect(()=>{
         if (wsIncomeMessage){
+            if (wsIncomeMessage){
+                if (userID !== JSON.parse(wsIncomeMessage).user) {
+                    if ('Notification' in window) {
+                        if (window.Notification.permission === 'granted') {
+                            new window.Notification(`Вы получили новое сообщение от ${get(filter(usersDict, {'id': JSON.parse(wsIncomeMessage).user}),[0, 'username'])}: ${JSON.parse(wsIncomeMessage).text}`);
+                        }
+                    }
+                }
+            }
+            
             const newReplyMessage = JSON.parse(wsIncomeMessage);
             privateReply(ID, newReplyMessage) 
-            replyBodyRef.current.value = ''
-
         }
     },[wsIncomeMessage])
 
@@ -127,8 +151,7 @@ function _PrivateMessageContainer({
 
     return (
         <>
-
-                 {/* блока приватных сообщений КОТОРЫЕ БЫЛИ */}
+                         {/* блока приватных сообщений КОТОРЫЕ БЫЛИ */}
         <MyModalChat
             visible={modal}
             setVisible={setModal}

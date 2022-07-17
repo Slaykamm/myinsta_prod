@@ -87,6 +87,15 @@ function _MultiChatCover({
 
     useEffect(()=>{
         if (wsIncomeMessage){
+            if (userID !== JSON.parse(wsIncomeMessage).user) {
+                if ('Notification' in window) {
+                    if (window.Notification.permission === 'granted') {
+                        new window.Notification(`Вы получили новое сообщение от ${get(filter(usersDict, {'id': JSON.parse(wsIncomeMessage).user}),[0, 'username'])}: ${JSON.parse(wsIncomeMessage).text}`);
+                    }
+                }
+            }
+            console.log('tesst', JSON.parse(wsIncomeMessage))
+
             const newReplyMessage = JSON.parse(wsIncomeMessage);
             privateReply(ID, newReplyMessage) 
             replyBodyRef.current.value = ''

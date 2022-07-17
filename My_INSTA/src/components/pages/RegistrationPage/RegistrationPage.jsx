@@ -125,7 +125,7 @@ function RegistrationPage(props) {
             navigate("/login")
         }
         else {
-            window.alert('Пользователь с данным ником уже зарегистрирован')
+            // window.alert('Пользователь с данным ником уже зарегистрирован')
         }
     },[props.putNewUserDataResult])
 //===========все. юзер создан!
