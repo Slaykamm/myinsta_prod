@@ -24,7 +24,7 @@ const App = () => {
         {/* <Route path='myinsta_prod/' element={<Navigate replace to='myinsta_prod/login/'/>}/> */}
         <Route path='/' element={<WelcomePage/>} />
         <Route path='myinsta_prod/' element={<WelcomePage/>} />
-        <Route path='https://slaykamm.github.io/myinsta_prod/' element={<WelcomePage/>} />
+        {/* <Route path='https://slaykamm.github.io/myinsta_prod/' element={<WelcomePage/>} /> */}
         {/* <Route path='login/' element={<WelcomePage/>} />
         <Route path='/login/' element={<WelcomePage/>} />
         <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
