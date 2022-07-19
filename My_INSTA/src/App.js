@@ -21,17 +21,17 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Navigate replace to='myinsta_prod/login/'/>}/>
+        <Route path='myinsta_prod/' element={<Navigate replace to='myinsta_prod/login/'/>}/>
+        <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
+        <Route path='login/registration/' element={<RegistrationPage/>} />
+        <Route path='/login/:params' element={<VkLogin />} />
         <Route path='main/' element={<MainPage/>} />
         <Route path='lk/' element={<UserCabinet/>} />
         <Route path="video/:id" element={<VideoPostPage/>}/>
-        <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
-        <Route path='login/registration/' element={<RegistrationPage/>} />
         <Route path='userclean/' element={<ClearUserService/>}/>
         <Route path='userVideoPage/' element={<UserVideoPage/>}/>
         <Route path='userVideoArchive/' element={<UserVideoArchive/>} />        
         <Route path='privateMessages/' element={<PrivateMessagePage/>} />
-        <Route path='/login/:params' element={<VkLogin />} />
         <Route path='/retrieveName/:params' element={<VkLoginName />} />
       </Routes>
     </div>
