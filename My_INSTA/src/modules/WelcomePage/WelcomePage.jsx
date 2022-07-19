@@ -46,7 +46,7 @@ const WelcomePage = (props) => {
 
     useEffect(()=>{
         if ((get(props.userCheckResult, ['0', 'status'])) === 200){
-           navigateMain("/main")
+           navigateMain("main/")
         }
     },[props.userCheckResult])
 
@@ -69,7 +69,7 @@ const WelcomePage = (props) => {
         if (get(props.userToken, [0, 'status']) == 200){
             localStorage.setItem('SLNUserName', props.isActualUser.username);
             localStorage.setItem('SLNToken', "Token " + get(props.userToken, [0, 'data', 'key']))
-            navigateMain("/main")
+            navigateMain("main/")
         }
         if (get(props.userToken, [0, 'status']) == 400){
             setIsError(true)

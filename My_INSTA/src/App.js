@@ -11,37 +11,14 @@ import PrivateMessagePage from './components/pages/PrivateMessagePage/PrivateMes
 import VkLogin from './modules/WelcomePage/VkLogin/VkLogin';
 import VkLoginName from './modules/WelcomePage/VkLogin/VkLoginName';
 import UserVideoArchive from './components/pages/userVideoArchive/userVideoArchive';
+import AppRouter from './AppRouter';
 
-
-const ENV = 'myinsta_prod/'
-const ENV_CLEAN = 'myinsta_prod'
 
 
 const App = () => {
   return (
     <div>
-      <Routes>
-        {/* <Route path='myinsta_prod/' element={<Navigate replace to='myinsta_prod/login/'/>}/> */}
-        <Route path='/' element={<WelcomePage/>} />
-        <Route path='myinsta_prod/' element={<WelcomePage/>} />
-        {/* <Route path='https://slaykamm.github.io/myinsta_prod/' element={<WelcomePage/>} /> */}
-        {/* <Route path='login/' element={<WelcomePage/>} />
-        <Route path='/login/' element={<WelcomePage/>} />
-        <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
-        <Route path='/myinsta_prod/login/' element={<WelcomePage/>} />
-        <Route path='myinsta_prod/myinsta_prod/login/' element={<WelcomePage/>} />
-        <Route path='/myinsta_prod/myinsta_prod/login/' element={<WelcomePage/>} /> */}
-        <Route path='login/registration/' element={<RegistrationPage/>} />
-        <Route path='/login/:params' element={<VkLogin />} />
-        <Route path='myinsta_prod/main/' element={<MainPage/>} />
-        <Route path='lk/' element={<UserCabinet/>} />
-        <Route path="video/:id" element={<VideoPostPage/>}/>
-        <Route path='userclean/' element={<ClearUserService/>}/>
-        <Route path='userVideoPage/' element={<UserVideoPage/>}/>
-        <Route path='userVideoArchive/' element={<UserVideoArchive/>} />        
-        <Route path='privateMessages/' element={<PrivateMessagePage/>} />
-        <Route path='/retrieveName/:params' element={<VkLoginName />} />
-      </Routes>
+        <AppRouter />
     </div>
   );
 };

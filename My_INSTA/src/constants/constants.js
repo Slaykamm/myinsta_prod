@@ -4,6 +4,8 @@ export const LEFT_SIDEBAR_HIDE = 'LEFT_SIDEBAR_HIDE'
 export const UNVERIFYED_USER_ADD = 'UNVERIFYED_USER_ADD'
 export const VERIFYED_USER_ADD = 'VERIFYED_USER_ADD'
 
+export const ENV = 'myinsta_prod'
+
 //Thunk constants
 
 export const SET_THUNK_REQUEST_REGISTERED_USERS = 'SET_THUNK_REQUEST_REGISTERED_USERS'
