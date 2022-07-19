@@ -21,8 +21,8 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path={ENV} element={<Navigate replace to='myinsta_prod/login/'/>}/>
-        <Route path='myinsta_prod/main/' element={<MainPage/>} />
+        <Route path='/' element={<Navigate replace to='myinsta_prod/login/'/>}/>
+        <Route path='main/' element={<MainPage/>} />
         <Route path='lk/' element={<UserCabinet/>} />
         <Route path="video/:id" element={<VideoPostPage/>}/>
         <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
