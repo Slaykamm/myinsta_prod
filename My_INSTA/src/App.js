@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='myinsta_prod/' element={<Navigate replace to='myinsta_prod/login/'/>}/>
+        {/* <Route path='myinsta_prod/' element={<Navigate replace to='myinsta_prod/login/'/>}/> */}
         <Route path='myinsta_prod/login/' element={<WelcomePage/>} />
         <Route path='login/registration/' element={<RegistrationPage/>} />
         <Route path='/login/:params' element={<VkLogin />} />
