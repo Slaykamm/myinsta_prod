@@ -55,13 +55,13 @@ export default function AppRouter() {
             <Route path='/' element={<Navigate replace to='/login'/>}/>
             <Route path='/login' exact element={<WelcomePage/>} />
             <Route path='/main' exact element={<MainPage/>} />
-            <Route path={`/${ENV}/#/lk/`} element={<UserCabinet/>} />
-            {/* <Route path='/lk' exact element={<UserCabinet/>} /> */}
+            {/* <Route path={`/${ENV}/#/lk/`} element={<UserCabinet/>} /> */}
+            <Route path='/lk' exact element={<UserCabinet/>} />
             <Route path="/video/:id" exact element={<VideoPostPage/>}/>
             <Route path='/login/registration' exact element={<RegistrationPage/>} />
             
-            <Route path={`/${ENV}/#/privateMessages/`} exact element={<PrivateMessagePage/>} />
-            {/* <Route path='/privateMessages' exact element={<PrivateMessagePage/>} /> */}
+            {/* <Route path={`/${ENV}/#/privateMessages/`} exact element={<PrivateMessagePage/>} /> */}
+            <Route path='/privateMessages' exact element={<PrivateMessagePage/>} />
 
 
             <Route path='/userclean' exact element={<ClearUserService/>}/>
