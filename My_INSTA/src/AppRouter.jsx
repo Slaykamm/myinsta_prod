@@ -35,15 +35,15 @@ export default function AppRouter() {
 
 
         <Route path='/' element={<Navigate replace to='login/'/>}/>
-        <Route path='main/' exact element={<MainPage/>} />
-        <Route path='lk/' exact element={<UserCabinet/>} />
-        <Route path="video/:id" exact element={<VideoPostPage/>}/>
-        <Route path='login/' exact element={<WelcomePage/>} />
-        <Route path='login/registration/' exact element={<RegistrationPage/>} />
-        <Route path='userclean/' exact element={<ClearUserService/>}/>
-        <Route path='userVideoPage/' exact element={<UserVideoPage/>}/>
-        <Route path='userVideoArchive/' exact element={<UserVideoArchive/>} />        
-        <Route path='privateMessages/' exact element={<PrivateMessagePage/>} />
+        <Route path='/main' exact element={<MainPage/>} />
+        <Route path='/lk' exact element={<UserCabinet/>} />
+        <Route path="/video/:id" exact element={<VideoPostPage/>}/>
+        <Route path='/login' exact element={<WelcomePage/>} />
+        <Route path='/login/registration' exact element={<RegistrationPage/>} />
+        <Route path='/userclean' exact element={<ClearUserService/>}/>
+        <Route path='/userVideoPage' exact element={<UserVideoPage/>}/>
+        <Route path='/userVideoArchive' exact element={<UserVideoArchive/>} />        
+        <Route path='/privateMessages' exact element={<PrivateMessagePage/>} />
         <Route path='/login/:params' exact element={<VkLogin />} />
         <Route path='/retrieveName/:params' exact element={<VkLoginName />} />
         {/* <Route path='login/' element={<Navigate replace to={routeEnrichEnv('')}/>}/>
