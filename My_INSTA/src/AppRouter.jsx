@@ -35,8 +35,13 @@ export default function AppRouter() {
         <Route path='/' element={<Navigate replace to={`/${ENV}`}/>}/>
         <Route path='/login' element={<Navigate replace to={`/${ENV}`}/>}/>
         <Route path={`/${ENV}`} exact element={<WelcomePage/>} />
-        <Route path='/main' exact element={<MainPage/>} />
-        <Route path='/lk' exact element={<UserCabinet/>} />
+
+        <Route path='/main' element={<Navigate replace to={`/${ENV}/main`}/>}/>
+        <Route path={`/${ENV}/main`} exact element={<MainPage/>} />
+
+        <Route path='/lk' element={<Navigate replace to={`/${ENV}/lk`}/>}/>
+        <Route path={`/${ENV}/lk`} exact element={<UserCabinet/>} />
+
         <Route path="/video/:id" exact element={<VideoPostPage/>}/>
         <Route path='/login/registration' exact element={<RegistrationPage/>} />
         <Route path='/userclean' exact element={<ClearUserService/>}/>
