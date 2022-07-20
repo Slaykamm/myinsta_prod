@@ -58,7 +58,7 @@ export default function AppRouter() {
             <Route path='/lk' exact element={<UserCabinet/>} />
             <Route path="/video/:id" exact element={<VideoPostPage/>}/>
             <Route path='/login/registration' exact element={<RegistrationPage/>} />
-            <Route path='/myinsta_prod/userclean' exact element={<ClearUserService/>}/>
+            <Route path='/userclean' exact element={<ClearUserService/>}/>
             <Route path='/userVideoPage' exact element={<UserVideoPage/>}/>
             <Route path='/userVideoArchive' exact element={<UserVideoArchive/>} />        
             <Route path='/privateMessages' exact element={<PrivateMessagePage/>} />
