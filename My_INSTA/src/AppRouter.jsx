@@ -52,8 +52,7 @@ export default function AppRouter() {
             <Route path='/login/:params' exact element={<VkLogin />} />
             <Route path='/retrieveName/:params' exact element={<VkLoginName />} /> */}
 
-            <Route path='/' element={<Navigate replace to='/myinsta_prod/login'/>}/>
-            <Route path='/myinsta_prod' element={<Navigate replace to='/myinsta_prod/login'/>}/>
+            <Route path='/' element={<Navigate replace to='/login'/>}/>
             <Route path='/login' exact element={<WelcomePage/>} />
             <Route path='/main' exact element={<MainPage/>} />
             <Route path='/lk' exact element={<UserCabinet/>} />
