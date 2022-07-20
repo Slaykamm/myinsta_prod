@@ -63,14 +63,14 @@ const _Menu = (props) => {
                         <Col>
                             <div className={cl.menuPanel}>
                                 <Nav.Item>
-                                            <Nav.Link href={`/${ENV}/main/`} eventKey="link-1"><span style={{color:'white'}}>Главная </span></Nav.Link>
+                                            <Nav.Link href={`main/`} eventKey="link-1"><span style={{color:'white'}}>Главная </span></Nav.Link>
                                 </Nav.Item>
                                 <Nav className="justify-content-end"  variant="pills" defaultActiveKey="/home">
                                     <Nav.Item>
-                                        <Nav.Link href={`/${ENV}/lk/`} eventKey="link-1"><span style={{color:'white'}}>Пользователь: {localStorage.getItem('SLNUserName') ? localStorage.getItem('SLNUserName') : <span>Login</span>} </span></Nav.Link>
+                                        <Nav.Link href={`lk/`} eventKey="link-1"><span style={{color:'white'}}>Пользователь: {localStorage.getItem('SLNUserName') ? localStorage.getItem('SLNUserName') : <span>Login</span>} </span></Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link href={`/${ENV}/userclean/`}><span style={{color:'white'}}>Сменить пользователя (LogOut)</span></Nav.Link>
+                                        <Nav.Link href={`userclean/`}><span style={{color:'white'}}>Сменить пользователя (LogOut)</span></Nav.Link>
                                     </Nav.Item>
                                 </Nav>
                             </div>

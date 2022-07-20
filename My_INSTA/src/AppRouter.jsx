@@ -41,18 +41,19 @@ export default function AppRouter() {
         <Route path='main/' element={<Navigate replace to={rootPathEnrichEnv('main/')}/>}/>
         <Route path={rootPathEnrichEnv('main/')} element={<MainPage/>} />
 
+        <Route path='lk/' element={<Navigate replace to={rootPathEnrichEnv('lk/')}/>}/>
+        <Route path={rootPathEnrichEnv('lk/')} element={<UserCabinet/>} />
 
-        <Route path={routeEnrichEnv('lk/')} element={<UserCabinet/>} />
         <Route path="video/:id" element={<VideoPostPage/>}/>
 
-
-        <Route path={routeEnrichEnv('userclean/')} element={<ClearUserService/>}/>
+        <Route path='userclean/' element={<Navigate replace to={rootPathEnrichEnv('userclean/')}/>}/>
+        <Route path={rootPathEnrichEnv('userclean/')} element={<ClearUserService/>}/>
 
         <Route path='userVideoPage/' element={<Navigate replace to={rootPathEnrichEnv('userVideoPage/')}/>}/>
         <Route path={routeEnrichEnv('userVideoPage/')} element={<UserVideoPage/>}/>
         <Route path={routeEnrichEnv('userVideoArchive/')} element={<UserVideoArchive/>} />    
 
-        <Route path={`/privateMessages/`} element={<Navigate replace to={rootPathEnrichEnv('privateMessages/')}/>}/>
+        <Route path={`privateMessages/`} element={<Navigate replace to={rootPathEnrichEnv('privateMessages/')}/>}/>
         <Route path={rootPathEnrichEnv('privateMessages/')} element={<PrivateMessagePage/>} />
 
 
