@@ -44,7 +44,7 @@ export default function AppRouter() {
         <Route path={routeEnrichEnv('userclean/')} element={<ClearUserService/>}/>
         <Route path={routeEnrichEnv('userVideoPage/')} element={<UserVideoPage/>}/>
         <Route path={routeEnrichEnv('userVideoArchive/')} element={<UserVideoArchive/>} />    
-        <Route path={`/privateMessages/`} element={<PrivateMessagePage/>} />
+        <Route path={`privateMessages/`} element={<PrivateMessagePage/>} />
         <Route path='/retrieveName/:params' element={<VkLoginName />} />
     </Routes>
     </div>
