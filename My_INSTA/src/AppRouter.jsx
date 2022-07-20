@@ -18,18 +18,16 @@ export default function AppRouter() {
     
 
     function routeEnrichEnv(route) {
+        console.log('rOUTe:',`${ENV}/${route}`)
         return `${ENV}/${route}`
     }
 
     function rootPathEnrichEnv(route) {
-        console.log('rrr', `/${ENV}/${route}`)
+        console.log('ROOT', `/${ENV}/${route}`)
         return `/${ENV}/${route}`
     }
         
-    
-    const path = '/'+routeEnrichEnv('main/')
-    console.log('PATH222', path)
-    
+
     
   return (
     <div>
@@ -39,11 +37,18 @@ export default function AppRouter() {
         <Route path={routeEnrichEnv('')} element={<WelcomePage/>} />
         <Route path={routeEnrichEnv('registration/')} element={<RegistrationPage/>} />
         <Route path='/login/:params' element={<VkLogin />} />
-        {/* <Route path={rootPathEnrichEnv('main/')} element={<MainPage/>} /> */}
-        <Route path='main/' element={<MainPage/>} />
+        
+        <Route path='main/' element={<Navigate replace to={rootPathEnrichEnv('main/')}/>}/>
+        <Route path={rootPathEnrichEnv('main/')} element={<MainPage/>} />
+
+
         <Route path={routeEnrichEnv('lk/')} element={<UserCabinet/>} />
         <Route path="video/:id" element={<VideoPostPage/>}/>
+
+
         <Route path={routeEnrichEnv('userclean/')} element={<ClearUserService/>}/>
+
+        <Route path='userVideoPage/' element={<Navigate replace to={rootPathEnrichEnv('userVideoPage/')}/>}/>
         <Route path={routeEnrichEnv('userVideoPage/')} element={<UserVideoPage/>}/>
         <Route path={routeEnrichEnv('userVideoArchive/')} element={<UserVideoArchive/>} />    
 
