@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.01adbf22.css",
-    "main.js": "/static/js/main.b118c20d.js",
-    "index.html": "/index.html",
-    "main.01adbf22.css.map": "/static/css/main.01adbf22.css.map",
-    "main.b118c20d.js.map": "/static/js/main.b118c20d.js.map"
+    "main.css": "/myinsta_prod/static/css/main.01adbf22.css",
+    "main.js": "/myinsta_prod/static/js/main.b118c20d.js",
+    "index.html": "/myinsta_prod/index.html",
+    "main.01adbf22.css.map": "/myinsta_prod/static/css/main.01adbf22.css.map",
+    "main.b118c20d.js.map": "/myinsta_prod/static/js/main.b118c20d.js.map"
   },
   "entrypoints": [
     "static/css/main.01adbf22.css",
