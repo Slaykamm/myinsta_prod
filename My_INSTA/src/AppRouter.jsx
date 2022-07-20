@@ -38,11 +38,13 @@ export default function AppRouter() {
         <Route path={routeEnrichEnv('registration/')} element={<RegistrationPage/>} />
         <Route path='/login/:params' element={<VkLogin />} />
         
-        <Route path='main/' element={<Navigate replace to={rootPathEnrichEnv('main/')}/>}/>
-        <Route path={rootPathEnrichEnv('main/')} element={<MainPage/>} />
+        <Route path={`main/`} element={<MainPage/>} />
+        <Route path={`/main/`} element={<MainPage/>} />
+        <Route path={`/${ENV}/main/`} element={<MainPage/>} />
 
-        <Route path='lk/' element={<Navigate replace to={rootPathEnrichEnv('lk/')}/>}/>
-        <Route path={rootPathEnrichEnv('lk/')} element={<UserCabinet/>} />
+        <Route path={`lk/`} element={<UserCabinet/>} />
+        <Route path={`/lk/`} element={<UserCabinet/>} />
+        <Route path={`/${ENV}/lk/`} element={<UserCabinet/>} />
 
         <Route path="video/:id" element={<VideoPostPage/>}/>
 
