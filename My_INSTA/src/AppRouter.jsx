@@ -34,18 +34,18 @@ export default function AppRouter() {
     <Routes>
 
 
-        <Route exact path='/' element={<Navigate replace to='login/'/>}/>
-        <Route exact path='main/' element={<MainPage/>} />
-        <Route exact path='lk/' element={<UserCabinet/>} />
-        <Route exact path="video/:id" element={<VideoPostPage/>}/>
-        <Route exact path='login/' element={<WelcomePage/>} />
-        <Route exact path='login/registration/' element={<RegistrationPage/>} />
-        <Route exact path='userclean/' element={<ClearUserService/>}/>
-        <Route exact path='userVideoPage/' element={<UserVideoPage/>}/>
-        <Route exact path='userVideoArchive/' element={<UserVideoArchive/>} />        
-        <Route exact path='privateMessages/' element={<PrivateMessagePage/>} />
-        <Route exact path='/login/:params' element={<VkLogin />} />
-        <Route exact path='/retrieveName/:params' element={<VkLoginName />} />
+        <Route path='/' element={<Navigate replace to='login/'/>}/>
+        <Route path='main/' exact element={<MainPage/>} />
+        <Route path='lk/' exact element={<UserCabinet/>} />
+        <Route path="video/:id" exact element={<VideoPostPage/>}/>
+        <Route path='login/' exact element={<WelcomePage/>} />
+        <Route path='login/registration/' exact element={<RegistrationPage/>} />
+        <Route path='userclean/' exact element={<ClearUserService/>}/>
+        <Route path='userVideoPage/' exact element={<UserVideoPage/>}/>
+        <Route path='userVideoArchive/' exact element={<UserVideoArchive/>} />        
+        <Route path='privateMessages/' exact element={<PrivateMessagePage/>} />
+        <Route path='/login/:params' exact element={<VkLogin />} />
+        <Route path='/retrieveName/:params' exact element={<VkLoginName />} />
         {/* <Route path='login/' element={<Navigate replace to={routeEnrichEnv('')}/>}/>
         <Route path='/' element={<Navigate replace to={routeEnrichEnv('')}/>}/>
         <Route path={routeEnrichEnv('')} element={<WelcomePage/>} />
