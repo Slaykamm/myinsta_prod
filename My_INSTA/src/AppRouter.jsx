@@ -32,8 +32,8 @@ export default function AppRouter() {
   return (
     <div>
     <Routes>
-        <Route path='/' element={<Navigate replace to={`/${ENV}/login`}/>}/>
-        <Route path={`/${ENV}/login`} exact element={<WelcomePage/>} />
+        <Route path='/' element={<Navigate replace to={`/${ENV}`}/>}/>
+        <Route path={`/${ENV}`} exact element={<WelcomePage/>} />
         <Route path='/main' exact element={<MainPage/>} />
         <Route path='/lk' exact element={<UserCabinet/>} />
         <Route path="/video/:id" exact element={<VideoPostPage/>}/>
@@ -57,6 +57,8 @@ export default function AppRouter() {
         <Route path='/privateMessages' exact element={<PrivateMessagePage/>} />
         <Route path='/login/:params' exact element={<VkLogin />} />
         <Route path='/retrieveName/:params' exact element={<VkLoginName />} /> */}
+
+
         {/* <Route path='login/' element={<Navigate replace to={routeEnrichEnv('')}/>}/>
         <Route path='/' element={<Navigate replace to={routeEnrichEnv('')}/>}/>
         <Route path={routeEnrichEnv('')} element={<WelcomePage/>} />
