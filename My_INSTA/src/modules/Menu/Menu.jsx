@@ -70,7 +70,7 @@ const _Menu = (props) => {
                                         <Nav.Link href="/lk" eventKey="link-1"><span style={{color:'white'}}>Пользователь: {localStorage.getItem('SLNUserName') ? localStorage.getItem('SLNUserName') : <span>Login</span>} </span></Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link href="/userclean"><span style={{color:'white'}}>Сменить пользователя (LogOut)</span></Nav.Link>
+                                        <Nav.Link href="userclean/"><span style={{color:'white'}}>Сменить пользователя (LogOut)</span></Nav.Link>
                                     </Nav.Item>
                                 </Nav>
                             </div>
