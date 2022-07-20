@@ -22,7 +22,7 @@ export default function AppRouter() {
     }
 
     function rootPathEnrichEnv(route) {
-        return ENV + route + '/'
+        return `/${ENV}/${route}`
     }
         
     
@@ -38,13 +38,17 @@ export default function AppRouter() {
         <Route path={routeEnrichEnv('')} element={<WelcomePage/>} />
         <Route path={routeEnrichEnv('registration/')} element={<RegistrationPage/>} />
         <Route path='/login/:params' element={<VkLogin />} />
-        <Route path={'/'+routeEnrichEnv('main/')} element={<MainPage/>} />
+        <Route path={rootPathEnrichEnv('main/')} element={<MainPage/>} />
         <Route path={routeEnrichEnv('lk/')} element={<UserCabinet/>} />
         <Route path="video/:id" element={<VideoPostPage/>}/>
         <Route path={routeEnrichEnv('userclean/')} element={<ClearUserService/>}/>
         <Route path={routeEnrichEnv('userVideoPage/')} element={<UserVideoPage/>}/>
         <Route path={routeEnrichEnv('userVideoArchive/')} element={<UserVideoArchive/>} />    
-        <Route path={`privateMessages/`} element={<PrivateMessagePage/>} />
+
+        <Route path='privateMessages/' element={<Navigate replace to={rootPathEnrichEnv('privateMessages/')}/>}/>
+        <Route path={rootPathEnrichEnv('privateMessages/')} element={<PrivateMessagePage/>} />
+
+
         <Route path='/retrieveName/:params' element={<VkLoginName />} />
     </Routes>
     </div>
