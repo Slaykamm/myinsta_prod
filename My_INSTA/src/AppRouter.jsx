@@ -33,6 +33,7 @@ export default function AppRouter() {
     <div>
     <Routes>
         <Route path='/' element={<Navigate replace to={`/${ENV}`}/>}/>
+        <Route path='/login' element={<Navigate replace to={`/${ENV}`}/>}/>
         <Route path={`/${ENV}`} exact element={<WelcomePage/>} />
         <Route path='/main' exact element={<MainPage/>} />
         <Route path='/lk' exact element={<UserCabinet/>} />
