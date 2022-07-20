@@ -22,6 +22,7 @@ export default function AppRouter() {
     }
 
     function rootPathEnrichEnv(route) {
+        console.log('rrr', `/${ENV}/${route}`)
         return `/${ENV}/${route}`
     }
         
@@ -45,7 +46,7 @@ export default function AppRouter() {
         <Route path={routeEnrichEnv('userVideoPage/')} element={<UserVideoPage/>}/>
         <Route path={routeEnrichEnv('userVideoArchive/')} element={<UserVideoArchive/>} />    
 
-        <Route path='privateMessages/' element={<Navigate replace to={rootPathEnrichEnv('privateMessages/')}/>}/>
+        <Route path='/privateMessages/' element={<Navigate replace to={rootPathEnrichEnv('privateMessages/')}/>}/>
         <Route path={rootPathEnrichEnv('privateMessages/')} element={<PrivateMessagePage/>} />
 
 

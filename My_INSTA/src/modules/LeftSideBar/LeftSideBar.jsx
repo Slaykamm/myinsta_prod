@@ -74,7 +74,7 @@ const _LeftSideBar = (props) => {
                 </li >
 
                 <li className={cl.textHover} >
-                    <Nav.Link href={`/${ENV}/privateMessages/`}><span style={{color:'black'}}>Ваши личные сообщения</span></Nav.Link>
+                    <Nav.Link href={`/privateMessages/`}><span style={{color:'black'}}>Ваши личные сообщения</span></Nav.Link>
                     
                 </li >
                 <li className={cl.textHover}>
