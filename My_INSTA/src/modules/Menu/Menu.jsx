@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
 import _ from 'lodash'
-
+import { ENV } from '../../constants/constants';
 
 const _Menu = (props) => {
 
